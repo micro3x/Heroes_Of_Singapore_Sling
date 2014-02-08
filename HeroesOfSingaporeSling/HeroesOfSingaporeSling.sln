@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameAssets", "GameAssets\Ga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameAI", "GameAI\GameAI.csproj", "{88B0DDF9-E35D-4BED-AD4A-B6471541FFCA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameCommon", "GameCommon\GameCommon.csproj", "{BDAACF6F-8740-46DF-A520-4A44D5FE67C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{88B0DDF9-E35D-4BED-AD4A-B6471541FFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88B0DDF9-E35D-4BED-AD4A-B6471541FFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88B0DDF9-E35D-4BED-AD4A-B6471541FFCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDAACF6F-8740-46DF-A520-4A44D5FE67C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDAACF6F-8740-46DF-A520-4A44D5FE67C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDAACF6F-8740-46DF-A520-4A44D5FE67C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDAACF6F-8740-46DF-A520-4A44D5FE67C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

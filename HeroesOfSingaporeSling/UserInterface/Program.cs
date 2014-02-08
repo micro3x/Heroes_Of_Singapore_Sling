@@ -18,7 +18,7 @@ namespace UserInterface
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var main = new Form1();
+            var main = new MainScreen();
             main.Show();
             Application.Run();
         }        

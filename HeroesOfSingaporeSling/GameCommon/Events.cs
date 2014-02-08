@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GameAssets;
 
+// Here we will write all Events
+// For example the event Fight, Hit, Obsticle hit ......
 
-namespace GameLogic
+namespace GameCommon
 {
     public delegate void LevelUpEventHandler(object Sender, LevelUpEventArgs e);
 

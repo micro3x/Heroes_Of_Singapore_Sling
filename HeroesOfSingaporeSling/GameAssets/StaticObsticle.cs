@@ -1,26 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GameCommon;
 
 namespace GameAssets
 {
     public class StaticObsticle : Obsticle
     {
-        StaticObsticleType staticObsticleType;
+        #region Vars
         private string _fileLocation;
+        #endregion
 
-        public StaticObsticleType StaticObsticleType
-        {
-            get { return staticObsticleType; }
-            set { staticObsticleType = value; }
-        }
+        #region Proparties
+        public StaticObsticleType StaticObsticleType { get; set; }
+        #endregion
 
+        #region Constructors
+        /// <summary>
+        /// Each instance is an object on the terrain
+        /// </summary>
+        /// <param name="typeOfObsticle">this is the type of static obsticle (Tree, Stone, Fence ....)</param>
+        /// <param name="posTop">Position of the object on the terrain </param>
+        /// <param name="posLeft">Position of the object on the terrain </param>
         public StaticObsticle(StaticObsticleType typeOfObsticle, int posTop, int posLeft)
         {
+            // here we set the proparties depending on the type of static obsticle
             switch (typeOfObsticle)
             {
                 case StaticObsticleType.Tree:
@@ -28,7 +31,7 @@ namespace GameAssets
                     _fileLocation += "\\Images\\Tree";
                     _fileLocation += BackgroungImageFileName(typeOfObsticle);
                     BuildBackground();
-                    staticObsticleType = typeOfObsticle;
+                    StaticObsticleType = typeOfObsticle;
                     positionTop = posTop;
                     positionLeft = posLeft;
                     break;
@@ -37,7 +40,7 @@ namespace GameAssets
                     _fileLocation += "\\Images\\Stone";
                     _fileLocation += BackgroungImageFileName(typeOfObsticle);
                     BuildBackground();
-                    staticObsticleType = typeOfObsticle;
+                    StaticObsticleType = typeOfObsticle;
                     positionTop = posTop;
                     positionLeft = posLeft;
                     break;
@@ -46,7 +49,7 @@ namespace GameAssets
                     _fileLocation += "\\Images\\Fence";
                     _fileLocation += BackgroungImageFileName(typeOfObsticle);
                     BuildBackground();
-                    staticObsticleType = typeOfObsticle;
+                    StaticObsticleType = typeOfObsticle;
                     positionTop = posTop;
                     positionLeft = posLeft;
                     break;
@@ -55,7 +58,14 @@ namespace GameAssets
             }
             ObsticleType = ObsticleType.Static;
         }
+        #endregion
 
+        #region Methods
+        /// <summary>
+        /// Here we set the image filename depending on the type of obsticle
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private string BackgroungImageFileName(StaticObsticleType type)
         {
             switch (type)
@@ -69,8 +79,10 @@ namespace GameAssets
                 default:
                     throw new ArgumentOutOfRangeException("type");
             }
-            return "\\small40x50.png";
         }
+        /// <summary>
+        /// Here we set the actual image propartie
+        /// </summary>
         private void BuildBackground()
         {
             Bitmap image = new Bitmap(_fileLocation);
@@ -78,10 +90,7 @@ namespace GameAssets
             Width = image.Width;
             ImageBitmap = image;
         }
+        #endregion
     }
 
-    public enum StaticObsticleType
-    {
-        Tree, Rock, Fence
-    }
 }

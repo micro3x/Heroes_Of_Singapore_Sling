@@ -42,12 +42,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Background.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="Obsticle.cs" />
     <Compile Include="StaticObsticle.cs" />
     <Compile Include="Terrain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\GameCommon\GameCommon.csproj">
+      <Project>{bdaacf6f-8740-46df-a520-4a44d5fe67c8}</Project>
+      <Name>GameCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
