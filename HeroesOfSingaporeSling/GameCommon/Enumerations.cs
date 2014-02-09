@@ -12,6 +12,6 @@ namespace GameCommon
 
     public enum StaticObsticleType
     {
-        Tree, Rock, Fence
+        Tree, Rock, Fence, BorderVertical, BorderHorizontal
     }
 }

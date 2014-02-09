@@ -34,6 +34,7 @@ namespace UserInterface
             AddObsticles(t.TerrainObsticles);
             menuStrip1.SetControlZIndex(1000);
             nextScreen = t.TerrainId;
+
         }
         /// <summary>
         /// By calling this constructor we can generate a specific terrain
@@ -47,8 +48,8 @@ namespace UserInterface
             BackgroundImageLayout = ImageLayout.Tile;
             InitializeComponent();
             AddObsticles(t.TerrainObsticles);
-            menuStrip1.SetControlZIndex(1000);
             nextScreen = t.TerrainId;
+            menuStrip1.BringToFront();
         }
         #endregion
 

@@ -53,6 +53,24 @@ namespace GameAssets
                     positionTop = posTop;
                     positionLeft = posLeft;
                     break;
+                case StaticObsticleType.BorderVertical:
+                    _fileLocation = Environment.CurrentDirectory;
+                    _fileLocation += "\\Images\\Borders";
+                    _fileLocation += BackgroungImageFileName(typeOfObsticle);
+                    BuildBackground();
+                    StaticObsticleType = typeOfObsticle;
+                    positionTop = posTop;
+                    positionLeft = posLeft;
+                    break;
+                case StaticObsticleType.BorderHorizontal:
+                    _fileLocation = Environment.CurrentDirectory;
+                    _fileLocation += "\\Images\\Borders";
+                    _fileLocation += BackgroungImageFileName(typeOfObsticle);
+                    BuildBackground();
+                    StaticObsticleType = typeOfObsticle;
+                    positionTop = posTop;
+                    positionLeft = posLeft;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("typeOfObsticle");
             }
@@ -76,6 +94,10 @@ namespace GameAssets
                     return "\\small70x70.png";
                 case StaticObsticleType.Fence:
                     return "\\small60x60.png";
+                case StaticObsticleType.BorderVertical:
+                    return "\\BorderVertical.png";
+                case StaticObsticleType.BorderHorizontal:
+                    return "\\BorderHorizontal.png";
                 default:
                     throw new ArgumentOutOfRangeException("type");
             }
