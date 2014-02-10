@@ -23,57 +23,37 @@ namespace GameAssets
         /// <param name="posLeft">Position of the object on the terrain </param>
         public StaticObsticle(StaticObsticleType typeOfObsticle, int posTop, int posLeft)
         {
+            _fileLocation = Environment.CurrentDirectory;
+            positionTop = posTop;
+            positionLeft = posLeft;
+            StaticObsticleType = typeOfObsticle;
             // here we set the proparties depending on the type of static obsticle
             switch (typeOfObsticle)
             {
                 case StaticObsticleType.Tree:
-                    _fileLocation = Environment.CurrentDirectory;
                     _fileLocation += "\\Images\\Tree";
                     _fileLocation += BackgroungImageFileName(typeOfObsticle);
-                    BuildBackground();
-                    StaticObsticleType = typeOfObsticle;
-                    positionTop = posTop;
-                    positionLeft = posLeft;
                     break;
                 case StaticObsticleType.Rock:
-                    _fileLocation = Environment.CurrentDirectory;
                     _fileLocation += "\\Images\\Stone";
                     _fileLocation += BackgroungImageFileName(typeOfObsticle);
-                    BuildBackground();
-                    StaticObsticleType = typeOfObsticle;
-                    positionTop = posTop;
-                    positionLeft = posLeft;
                     break;
                 case StaticObsticleType.Fence:
-                    _fileLocation = Environment.CurrentDirectory;
                     _fileLocation += "\\Images\\Fence";
                     _fileLocation += BackgroungImageFileName(typeOfObsticle);
-                    BuildBackground();
-                    StaticObsticleType = typeOfObsticle;
-                    positionTop = posTop;
-                    positionLeft = posLeft;
                     break;
                 case StaticObsticleType.BorderVertical:
-                    _fileLocation = Environment.CurrentDirectory;
                     _fileLocation += "\\Images\\Borders";
                     _fileLocation += BackgroungImageFileName(typeOfObsticle);
-                    BuildBackground();
-                    StaticObsticleType = typeOfObsticle;
-                    positionTop = posTop;
-                    positionLeft = posLeft;
                     break;
                 case StaticObsticleType.BorderHorizontal:
-                    _fileLocation = Environment.CurrentDirectory;
                     _fileLocation += "\\Images\\Borders";
                     _fileLocation += BackgroungImageFileName(typeOfObsticle);
-                    BuildBackground();
-                    StaticObsticleType = typeOfObsticle;
-                    positionTop = posTop;
-                    positionLeft = posLeft;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("typeOfObsticle");
             }
+            BuildBackground();
             ObsticleType = ObsticleType.Static;
         }
         #endregion
