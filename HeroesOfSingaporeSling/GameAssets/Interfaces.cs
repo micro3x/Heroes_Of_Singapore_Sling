@@ -22,5 +22,6 @@ namespace GameAssets
         int positionLeft { get; set; }
 
         ObsticleType ObsticleType { get; set; }
+        //StaticObsticleType StaticObsticleType { set; get; }
     }
 }

@@ -16,7 +16,7 @@ namespace GameAssets
         public int positionTop { get; set; }
         public int positionLeft { get; set; }
         public ObsticleType ObsticleType { get; set; }
-
+        
     }
     /// <summary>
     /// This is a Comparer that compares two IObsticle type objects

@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Enumerations.cs" />
     <Compile Include="Events.cs" />
+    <Compile Include="ImagePaths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
