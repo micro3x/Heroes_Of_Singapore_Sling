@@ -1,5 +1,4 @@
-﻿
-// Here we will Write all enumerations :)
+﻿using System;// Here we will Write all enumerations :)
 
 namespace GameCommon
 {
@@ -13,5 +12,10 @@ namespace GameCommon
     public enum StaticObsticleType
     {
         Tree, Rock, Fence, BorderVertical, BorderHorizontal
+    }
+
+    public enum BackgroundType
+    {
+        Grass, Water, SomethingElse
     }
 }

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using GameCommon;
 
 namespace GameAssets
@@ -15,9 +13,9 @@ namespace GameAssets
     public class Terrain
     {
         #region Vars
-        private readonly Background _backgroundFile = new Background();
-        private List<IObsticle> terrainObsticles = new List<IObsticle>();
-        private int _terrainId;
+        private readonly Background backgroundFile = new Background((BackgroundType)0);
+        private readonly List<StaticObsticle> terrainObsticles = new List<StaticObsticle>();
+        private int terrainId;
         #endregion
 
         #region Proparties
@@ -26,12 +24,12 @@ namespace GameAssets
         /// </summary>
         public Bitmap Background
         {
-            get { return _backgroundFile.BackgroundImage; }
+            get { return backgroundFile.BackgroundImage; }
         }
         /// <summary>
         /// returns the list of IObsticles to be created on the terrain
         /// </summary>
-        public List<IObsticle> TerrainObsticles
+        public List<StaticObsticle> TerrainObsticles
         {
             get { return terrainObsticles; }
         }
@@ -40,8 +38,8 @@ namespace GameAssets
         /// </summary>
         public int TerrainId
         {
-            get { return _terrainId; }
-            set { _terrainId = value; }
+            get { return terrainId; }
+            set { terrainId = value; }
         }
         #endregion
 
@@ -51,7 +49,7 @@ namespace GameAssets
         /// </summary>
         public Terrain()
         {
-            _terrainId = 5;
+            terrainId = 5;
             GenerateObsticles();
         }
         /// <summary>
@@ -60,7 +58,7 @@ namespace GameAssets
         /// <param name="nextTerrainId"></param>
         public Terrain(int nextTerrainId)
         {
-            _terrainId = nextTerrainId;
+            terrainId = nextTerrainId;
             GenerateObsticles();
         }
         #endregion
@@ -73,7 +71,7 @@ namespace GameAssets
         private void GenerateObsticles()
         {
             //Reading the file in Map directory
-            StreamReader sr = new StreamReader(Environment.CurrentDirectory + "\\Map\\" + _terrainId + ".mappart");
+            StreamReader sr = new StreamReader(Environment.CurrentDirectory + "\\Map\\" + terrainId + ".mappart");
             using (sr)
             {
                 string current = sr.ReadLine();

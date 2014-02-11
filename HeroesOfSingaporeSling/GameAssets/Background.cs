@@ -7,65 +7,34 @@ namespace GameAssets
     /// <summary>
     /// Used to get the background for the MainScreen
     /// </summary>
-    class Background
+    public class Background : ImageProperties
     {
-        #region Vars
-        /// <summary>
-        /// Where is the image file
-        /// </summary>
-        private readonly string _fileLocation;
-        /// <summary>
-        /// What is the file name
-        /// </summary>
-        private readonly string _fileName;
-        private int _height;
-        private int _width;
-        /// <summary>
-        /// Holding the image to return
-        /// </summary>
-        private Bitmap _backgroundImage;
-        #endregion
-
         #region Proparties
         public Bitmap BackgroundImage
         {
-            get { return _backgroundImage; }
+           get { return ImageBitmap; }
         }
         #endregion
-
+       
         #region Constructors
-        public Background()
+        public Background(GameCommon.BackgroundType backgroundType)
         {
-            // here we get the directory where the program is running from
-            _fileLocation = Environment.CurrentDirectory;
-            // here we set the location in the subdirectory
-            _fileLocation += "\\Images\\Backgrounds";
-            // setting the filename
-            _fileName = BackgroungImageFileName();
-            BuildBackground();
+            BuildBackground(Environment.CurrentDirectory + GameCommon.ImagePaths.BackgroundImagePathDict[backgroundType]);
         }
         #endregion
 
         #region Methods
-        /// <summary>
-        /// this is a separate method because the background image may differ.
-        /// for example: desert, grass, stone
-        /// </summary>
-        /// <returns>the filename of the image</returns>
-        private string BackgroungImageFileName()
-        {
-            return "\\grass-background.jpg";
-        }
+       
         /// <summary>
         /// Sets the image propartie
         /// </summary>
-        private void BuildBackground()
+        private void BuildBackground(string fileLocation)
         {
-            Image image = Image.FromFile(_fileLocation + _fileName);
-            _height = image.Height;
-            _width = image.Width;
-            _backgroundImage = new Bitmap(_height, _width);
-            Graphics.FromImage(_backgroundImage).DrawImage(image, new Point(0, 0));
+            Image image = Image.FromFile(fileLocation);
+            Height = image.Height;
+            Width = image.Width;
+            ImageBitmap = new Bitmap(Height, Width);
+            Graphics.FromImage(ImageBitmap).DrawImage(image, new Point(0, 0));
         }
         #endregion
     }

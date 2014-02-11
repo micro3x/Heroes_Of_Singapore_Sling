@@ -27,7 +27,7 @@ namespace UserInterface
         /// </summary>
         public MainScreen()
         {
-            t = new Terrain();
+            Terrain t = new Terrain();
             InitializeComponent();
             BackgroundImage = t.Background;
             BackgroundImageLayout = ImageLayout.Tile;
@@ -42,7 +42,7 @@ namespace UserInterface
         /// <param name="terrainID">the id of the terrain we want to display </param>
         public MainScreen(int terrainID)
         {
-            t = new Terrain(terrainID);
+            Terrain t = new Terrain(terrainID);
             
             BackgroundImage = t.Background;
             BackgroundImageLayout = ImageLayout.Tile;
@@ -59,7 +59,7 @@ namespace UserInterface
         /// and creates a control for each list item.
         /// </summary>
         /// <param name="inputObsticles"></param>
-        private void AddObsticles(List<IObsticle> inputObsticles)
+        private void AddObsticles(List<StaticObsticle> inputObsticles)
         {
             //t.TerrainObsticles.Sort(new DrawingSort());
             for (int i = 0; i < inputObsticles.Count; i++)
@@ -69,8 +69,8 @@ namespace UserInterface
                 // now we create the Control and set the proparties
                 ObsticleDisplayBox a = new ObsticleDisplayBox();
                 // position
-                a.Left = inputObsticle.positionLeft;
-                a.Top = inputObsticle.positionTop;
+                a.Left = inputObsticle.PositionLeft;
+                a.Top = inputObsticle.PositionTop;
                 // dimentions
                 a.Height = inputObsticle.Height;
                 a.Width = inputObsticle.Width;

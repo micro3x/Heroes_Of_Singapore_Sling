@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameCommon
 {
@@ -17,5 +15,13 @@ namespace GameCommon
             { StaticObsticleType.BorderVertical, "\\Images\\Borders\\BorderVertical.png" },
             { StaticObsticleType.BorderHorizontal, "\\Images\\Borders\\BorderHorizontal.png" }
         };
+
+        public static Dictionary<BackgroundType, string> BackgroundImagePathDict =
+            new Dictionary<BackgroundType, string>()
+        {
+            { BackgroundType.Grass, "\\Images\\Backgrounds\\grass-background.jpg" },
+            
+        };
+        
     }
 }
