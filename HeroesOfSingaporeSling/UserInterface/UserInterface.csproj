@@ -64,6 +64,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\HeroDisplayBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\HeroDisplayBox.Designer.cs">
+      <DependentUpon>HeroDisplayBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ObsticleDisplayBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -102,6 +108,10 @@
     <ProjectReference Include="..\GameCommon\GameCommon.csproj">
       <Project>{bdaacf6f-8740-46df-a520-4a44d5fe67c8}</Project>
       <Name>GameCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameLogic\GameLogic.csproj">
+      <Project>{754d81e4-b130-4edf-ad01-5f997f342f59}</Project>
+      <Name>GameLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

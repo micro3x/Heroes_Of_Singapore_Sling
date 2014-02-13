@@ -4,12 +4,16 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GameAssets;
 using UserInterface.UserControls;
 using GameCommon;
+using GameLogic;
+
 
 namespace UserInterface
 {
@@ -19,6 +23,18 @@ namespace UserInterface
         #region Vars
         public Terrain t;
         private int nextScreen;
+
+        // the hero class is not ready so I just create one temp!!!
+        // Daniel I know this is ugly... 
+        Hero currentHero = new Hero()
+        {
+            ImageBitmap = new Bitmap(Environment.CurrentDirectory + "\\Images\\Hero\\hero.png", true),
+            Height = 50,
+            Width = 45,
+            PositionTop = 200,
+            PositionLeft = 200,
+            ObsticleType = ObsticleType.Createre
+        };
         #endregion
 
         #region Constructors
@@ -27,13 +43,29 @@ namespace UserInterface
         /// </summary>
         public MainScreen()
         {
-            Terrain t = new Terrain();
+            t = new Terrain();
             InitializeComponent();
             BackgroundImage = t.Background;
             BackgroundImageLayout = ImageLayout.Tile;
             AddObsticles(t.TerrainObsticles);
             menuStrip1.SetControlZIndex(1000);
             nextScreen = t.TerrainId;
+
+
+            // I created a Custom user control that I don't need but (see next comment)
+            HeroDisplayBox heroDisplay = new HeroDisplayBox();
+            // Like I said... this is temporary
+            heroDisplay.Name = "hero";
+            heroDisplay.Image = currentHero.ImageBitmap;
+            heroDisplay.Width = currentHero.Width;
+            heroDisplay.Height = currentHero.Height;
+            heroDisplay.Top = currentHero.PositionTop;
+            heroDisplay.Left = currentHero.PositionLeft;
+            heroDisplay.BackColor = Color.Transparent;
+            this.Controls.Add(heroDisplay);
+            // here we attach to the event Move of our hero
+            currentHero.Move += MoveHero;
+            this.Controls[this.Controls.Count -1].BringToFront();
 
         }
         /// <summary>
@@ -50,6 +82,21 @@ namespace UserInterface
             AddObsticles(t.TerrainObsticles);
             nextScreen = t.TerrainId;
             menuStrip1.BringToFront();
+
+            // I created a Custom user control that I don't need but (see next comment)
+            HeroDisplayBox heroDisplay = new HeroDisplayBox();
+            // Like I said... this is temporary
+            heroDisplay.Name = "hero";
+            heroDisplay.Image = currentHero.ImageBitmap;
+            heroDisplay.Width = currentHero.Width;
+            heroDisplay.Height = currentHero.Height;
+            heroDisplay.Top = currentHero.PositionTop;
+            heroDisplay.Left = currentHero.PositionLeft;
+            heroDisplay.BackColor = Color.Transparent;
+            this.Controls.Add(heroDisplay);
+            // here we attach to the event Move of our hero
+            currentHero.Move += MoveHero;
+            this.Controls[this.Controls.Count - 1].BringToFront();
         }
         #endregion
 
@@ -59,7 +106,7 @@ namespace UserInterface
         /// and creates a control for each list item.
         /// </summary>
         /// <param name="inputObsticles"></param>
-        private void AddObsticles(List<StaticObsticle> inputObsticles)
+        private void AddObsticles(List<ImageProperties> inputObsticles)
         {
             //t.TerrainObsticles.Sort(new DrawingSort());
             for (int i = 0; i < inputObsticles.Count; i++)
@@ -94,6 +141,7 @@ namespace UserInterface
         {
             // create the new screen
             MainScreen nextScreenForm1 = new MainScreen(next);
+            Movement.Stop();
             // display the new screen
             nextScreenForm1.Show();
             // close the old screen
@@ -102,6 +150,30 @@ namespace UserInterface
         #endregion
 
         #region Event Handelers
+        /// <summary>
+        /// Our hero Moved so we must show it on the Form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void MoveHero(object sender, MoveEventArgs e)
+        {
+            // First we find the DisplayBox
+            HeroDisplayBox a = (HeroDisplayBox)this.Controls.Find("hero", true)[0];
+            // Since this event is happening in some other Thread (the timer thread)
+            // we check if some other thread can do something on our Form
+            if (InvokeRequired)
+            {
+                // if we are here this means only this thread can touch our form!
+                // So we call the invoke method with the delegate Action and create 
+                // an anonimous method to do the job.
+                this.Invoke((Action)(() =>
+                {
+                    a.Top = e.posTop;
+                    a.Left = e.posLeft;
+                }));
+            }
+            // we moved!
+        }
         /// <summary>
         /// This happens when you click an objec
         /// </summary>
@@ -175,14 +247,20 @@ namespace UserInterface
         /// <param name="e"></param>
         private void MainScreen_MouseClick(object sender, MouseEventArgs e)
         {
+
+            
             // where did we click
             bool changeScreen = false;
             int clickedLeft = e.X;
             int clickedTop = e.Y;
-            // Show message with coordinates (to be removed
-            MessageBox.Show(String.Format("You Clicked Coordinates {{{0}, {1}}}", clickedTop, clickedLeft));
             // if we clicked on the border
             // we prepare to change the screen
+
+            // Heeyyy... Movement Class... I want to move this hero on this terrain to those coordinates
+            // And By the way do it step by step... you figure out how!
+            Movement.MoveToPosition(currentHero , e.Y, e.X, t.TerrainObsticles);
+
+            // this will probably go away! 
             if (clickedTop < 30)
             {
                 // calculate the next screen
@@ -211,6 +289,7 @@ namespace UserInterface
                 // Calling the ChangeScreen if we clicked on a border
                 ChangeScreen(nextScreen);
             }
+
         }
         #endregion
     }
