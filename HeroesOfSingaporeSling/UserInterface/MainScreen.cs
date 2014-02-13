@@ -21,7 +21,7 @@ namespace UserInterface
     {
 
         #region Vars
-        public Terrain t;
+        private Terrain t;
         private int nextScreen;
 
         // the hero class is not ready so I just create one temp!!!
@@ -74,7 +74,7 @@ namespace UserInterface
         /// <param name="terrainID">the id of the terrain we want to display </param>
         public MainScreen(int terrainID)
         {
-            Terrain t = new Terrain(terrainID);
+            t = new Terrain(terrainID);
             
             BackgroundImage = t.Background;
             BackgroundImageLayout = ImageLayout.Tile;
@@ -258,6 +258,7 @@ namespace UserInterface
 
             // Heeyyy... Movement Class... I want to move this hero on this terrain to those coordinates
             // And By the way do it step by step... you figure out how!
+            Movement.Stop();
             Movement.MoveToPosition(currentHero , e.Y, e.X, t.TerrainObsticles);
 
             // this will probably go away! 
