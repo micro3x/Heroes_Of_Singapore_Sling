@@ -50,7 +50,7 @@ namespace UserInterface
             AddObsticles(t.TerrainObsticles);
             menuStrip1.SetControlZIndex(1000);
             nextScreen = t.TerrainId;
-
+            this.BackColor = Color.DarkGreen;
 
             // I created a Custom user control that I don't need but (see next comment)
             HeroDisplayBox heroDisplay = new HeroDisplayBox();
@@ -82,6 +82,7 @@ namespace UserInterface
             AddObsticles(t.TerrainObsticles);
             nextScreen = t.TerrainId;
             menuStrip1.BringToFront();
+            this.BackColor = Color.DarkGreen;
 
             // I created a Custom user control that I don't need but (see next comment)
             HeroDisplayBox heroDisplay = new HeroDisplayBox();

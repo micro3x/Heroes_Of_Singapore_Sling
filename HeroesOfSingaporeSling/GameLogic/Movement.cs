@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
@@ -60,56 +61,68 @@ namespace GameLogic
             // we create a container for our path X and Y
             Path = new List<Tuple<int, int>>();
             //Start building the path
-            do
+            Action Build = delegate
             {
-                // We take the Y values of all points arawnd our current position
-                int[] ypos = new[]
+                do
                 {
-                    newTop - 1,
-                    newTop - 1,
-                    newTop,  
-                    newTop + 1,
-                    newTop + 1,
-                    newTop + 1,
-                    newTop,  
-                    newTop - 1
-                };
-                // We take the X values of all points arawnd our current position
-                int[] xpos = new[]           
-                {                            
-                    newLeft, 
-                    newLeft +1,
-                    newLeft +1,
-                    newLeft +1,
-                    newLeft, 
-                    newLeft -1,
-                    newLeft -1,
-                    newLeft -1,
-                };
-                // we calculate the distance between our current position and the final destination
-                double minDistance = CalcDistance(newLeft, newTop, _targetleft, _targettop);
-                // we do the same with all 8 point arawnd our current position
-                for (int i = 0; i < xpos.Length; i++)
-                {
-                    // by checking all points arownd us we determin which one is closer to our final destination
-                    double distance = CalcDistance(_targetleft, _targettop, xpos[i], ypos[i]);
-                    if (distance < minDistance)
+                    // We take the Y values of all points arawnd our current position
+                    int[] ypos = new[]
                     {
-                        // we found a point closer so we set the values
-                        minDistance = distance;
-                        newTop = ypos[i];
-                        newLeft = xpos[i];
+                        newTop - 1,
+                        newTop - 1,
+                        newTop,  
+                        newTop + 1,
+                        newTop + 1,
+                        newTop + 1,
+                        newTop,  
+                        newTop - 1
+                    };
+                    // We take the X values of all points arawnd our current position
+                    int[] xpos = new[]
+                    {                            
+                        newLeft, 
+                        newLeft +1,
+                        newLeft +1,
+                        newLeft +1,
+                        newLeft, 
+                        newLeft -1,
+                        newLeft -1,
+                        newLeft -1,
+                    };
+                    // we calculate the distance between our current position and the final destination
+                    double minDistance = CalcDistance(newLeft, newTop, _targetleft, _targettop);
+                    // we do the same with all 8 point arawnd our current position
+                    for (int i = 0; i < xpos.Length; i++)
+                    {
+                        // by checking all points arownd us we determin which one is closer to our final destination
+                        double distance = CalcDistance(_targetleft, _targettop, xpos[i], ypos[i]);
+                        if (distance < minDistance)
+                        {
+                            // we found a point closer so we set the values
+                            minDistance = distance;
+                            newTop = ypos[i];
+                            newLeft = xpos[i];
+                        }
                     }
+                    // we add the point to the path
+                    Rectangle r = new Rectangle(newLeft, newTop, itemToMove.ImageBitmap.Width, itemToMove.ImageBitmap.Height);
+                    foreach (ImageProperties obs in obsticlesList)
+                    {
+                        hit = HitCheck(r, obs);
+                        if (hit)
+                        {
+                            return;
+                        }
+                    }
+                    Path.Add(new Tuple<int, int>(newLeft, newTop));
                 }
-                // we add the point to the path
-                Path.Add(new Tuple<int, int>(newLeft, newTop));
-            }
-            // we are doing it untill we reach the destination.
-            while (!(newTop == _targettop && newLeft == _targetleft));
-
+                // we are doing it untill we reach the destination.
+                while (!(newTop == _targettop && newLeft == _targetleft));
+            };
             // we don't want to move on every pixel (we will move very slow)
             // so we take every 5th point in the path and create a new path
             // with less steps
+            Build();
             int step = 5;
             Path = Path.Where((x, i) => i % step == 0).ToList();
         }
@@ -126,22 +139,6 @@ namespace GameLogic
             {
                 try
                 {
-                    // we loop throgh the obsticles on our terrain to see if we hit any of them
-                    foreach (ImageProperties obs in obsticlesList)
-                    {
-                        hit = HitCheck((ImageProperties)itemToMove, obs);
-                        if (hit)
-                        {
-                            // we hit an obsticle "OK Stop! Hammer time!"
-                            Stop();
-                            // did we hit a creature ?
-                            if (obs.ObsticleType == ObsticleType.Createre)
-                            {
-                                //Start a Battle
-                            }
-                            break;
-                        }
-                    }
                     // let's make the step
                     // we call the ChangePosition method in our item because 
                     // it not only changes the position values in our item
@@ -197,13 +194,13 @@ namespace GameLogic
         /// <param name="firstObject"></param>
         /// <param name="secondObject"></param>
         /// <returns></returns>
-        private static bool HitCheck(ImageProperties firstObject, ImageProperties secondObject)
+        private static bool HitCheck(Rectangle firstObject, ImageProperties secondObject)
         {
             Tuple<int, int>[] points = new Tuple<int, int>[4];
-            points[0] = new Tuple<int, int>(firstObject.PositionTop, firstObject.PositionLeft);
-            points[1] = new Tuple<int, int>(firstObject.PositionTop, firstObject.PositionLeft + firstObject.Width);
-            points[2] = new Tuple<int, int>(firstObject.PositionTop + firstObject.Height, firstObject.PositionLeft + firstObject.Width);
-            points[3] = new Tuple<int, int>(firstObject.PositionTop + firstObject.Height, firstObject.PositionLeft);
+            points[0] = new Tuple<int, int>(firstObject.Y, firstObject.X);
+            points[1] = new Tuple<int, int>(firstObject.Y, firstObject.X + firstObject.Width);
+            points[2] = new Tuple<int, int>(firstObject.Y + firstObject.Height, firstObject.X + firstObject.Width);
+            points[3] = new Tuple<int, int>(firstObject.Y + firstObject.Height, firstObject.X);
             for (int i = 0; i < points.Length; i++)
             {
                 if (
