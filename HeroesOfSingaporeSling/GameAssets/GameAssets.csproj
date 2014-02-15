@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Background.cs" />
+    <Compile Include="BackgroundSound.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Events.cs" />

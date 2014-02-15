@@ -30,6 +30,7 @@ namespace GameAssets
         /// </summary>
         private void BuildBackground(string fileLocation)
         {
+            BackgroundMusic.PlayIngameMusic();
             Image image = Image.FromFile(fileLocation);
             Height = image.Height;
             Width = image.Width;
