@@ -18,4 +18,9 @@ namespace GameCommon
     {
         Grass, Water, SomethingElse
     }
+
+    public enum HeroType
+    {
+        Warrior, Mage, Rogue, Paladin, SomethingElse
+    }
 }
