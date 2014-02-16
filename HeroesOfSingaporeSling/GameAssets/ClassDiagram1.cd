@@ -3,12 +3,12 @@
   <Class Name="GameAssets.Creature" Collapsed="true">
     <Position X="2.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACACAAAAAAAAAAAAAAAQBQAAAAAAAAAAAogAAAAA=</HashCode>
+      <HashCode>AAAACACAIAAAgIAAAAiAAAQBQAAEAQAABAAAogAAACo=</HashCode>
       <FileName>Creature.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameAssets.Enemy" Collapsed="true">
-    <Position X="1.5" Y="3.25" Width="1.5" />
+    <Position X="0.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Obsticles\Enemy.cs</FileName>
@@ -38,7 +38,7 @@
   <Class Name="GameAssets.Hero">
     <Position X="4" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAIAAAIQAAAAEAAQABAAAAAAAAAABAAQAAAAAAAA=</HashCode>
+      <HashCode>AAQAAIAAAIQAQAAEAAQABAAAAAEAAAABAAQAAAAAAAA=</HashCode>
       <FileName>Heroes\Hero.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -46,7 +46,7 @@
   <Class Name="GameAssets.Obsticle" Collapsed="true">
     <Position X="4.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAABAAQAAEAAAAAAEAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ABAEAAAABAAQAAAAAAAAAEAAABAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Obsticle.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -79,30 +79,37 @@
     </TypeIdentifier>
   </Class>
   <Class Name="GameAssets.BackgroundMusic" Collapsed="true">
-    <Position X="11.75" Y="5.25" Width="1.5" />
+    <Position X="8" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAUCAAAAAAAAAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAA=</HashCode>
       <FileName>BackgroundSound.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameAssets.Background" Collapsed="true">
-    <Position X="6.25" Y="4" Width="1.5" />
+    <Position X="5.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
       <FileName>Background.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameAssets.BaseHero">
-    <Position X="2" Y="5" Width="1.5" />
+    <Position X="1.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Heroes\BaseHero.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.BaseHeroTwo">
+    <Position X="6.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Heroes\BaseHeroTwo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="GameAssets.IMoveble" Collapsed="true">
     <Position X="10.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAIAQAAEAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ABAAAIAAAIAQAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IMoveble.cs</FileName>
     </TypeIdentifier>
   </Interface>
