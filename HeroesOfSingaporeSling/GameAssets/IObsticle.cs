@@ -9,7 +9,7 @@ namespace GameAssets
     /// <summary>
     /// All clases that inherit this interface can be drawn on the terrain 
     /// </summary>
-    public interface IObsticle
+    public interface IDrawable
     {
         int Width { get; set; }
         int Height { get; set; }
@@ -17,6 +17,5 @@ namespace GameAssets
         int PositionTop { get; set; }
         int PositionLeft { get; set; }
 
-        ObsticleType ObsticleType { get; set; }
     }
 }

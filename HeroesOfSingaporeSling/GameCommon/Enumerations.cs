@@ -2,22 +2,11 @@
 
 namespace GameCommon
 {
-    public enum ObsticleType
-    {
-        Static,
-        Createre,
-        Item
-    }
+    
 
-    public enum StaticObsticleType
-    {
-        Tree, Rock, Fence, BorderVertical, BorderHorizontal
-    }
+   
 
-    public enum BackgroundType
-    {
-        Grass, Water, SomethingElse
-    }
+    
 
     public enum HeroType
     {

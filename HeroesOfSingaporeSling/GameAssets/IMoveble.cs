@@ -14,7 +14,7 @@ namespace GameAssets
     {
         event EventHandler<MoveEventArgs> Move;
 
-        Bitmap ImageBitmap { get; set; }
+        Bitmap ExploreImage { get; set; }
         int PositionTop { get; set; }
         int PositionLeft { get; set; }
         void ChangePosition(int newPositionTop, int newPositionLeft);

@@ -1,25 +1,38 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
 namespace GameAssets
 {
+    public enum BackgroundType
+    {
+        Grass, Water, SomethingElse
+    }
+    
     /// <summary>
     /// Used to get the background for the MainScreen
     /// </summary>
-    public class Background : ImageProperties
+    /// 
+    public class Background : Obsticle
     {
+        public static Dictionary<BackgroundType, string> BackgroundImagePathDict =
+            new Dictionary<BackgroundType, string>()
+        {
+            { BackgroundType.Grass, "\\Images\\Backgrounds\\grass-background.jpg" },
+            
+        };
         #region Proparties
         public Bitmap BackgroundImage
         {
-           get { return ImageBitmap; }
+           get { return ExploreImage; }
         }
         #endregion
        
         #region Constructors
-        public Background(GameCommon.BackgroundType backgroundType)
+        public Background(BackgroundType backgroundType)
         {
-            BuildBackground(Environment.CurrentDirectory + GameCommon.ImagePaths.BackgroundImagePathDict[backgroundType]);
+            BuildBackground(Environment.CurrentDirectory + BackgroundImagePathDict[backgroundType]);
         }
         #endregion
 
@@ -34,8 +47,8 @@ namespace GameAssets
             Image image = Image.FromFile(fileLocation);
             Height = image.Height;
             Width = image.Width;
-            ImageBitmap = new Bitmap(Height, Width);
-            Graphics.FromImage(ImageBitmap).DrawImage(image, new Point(0, 0));
+            ExploreImage = new Bitmap(Height, Width);
+            Graphics.FromImage(ExploreImage).DrawImage(image, new Point(0, 0));
         }
         #endregion
     }

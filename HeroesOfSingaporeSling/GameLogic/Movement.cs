@@ -24,7 +24,7 @@ namespace GameLogic
         private static IMoveble itemToMove;
         private static List<Tuple<int, int>> Path;
         private static bool hit;
-        private static List<ImageProperties> obsticlesList;
+        private static List<Obsticle> obsticlesList;
         #endregion
         /// <summary>
         /// Start moving the passed item by calling this method.
@@ -34,14 +34,14 @@ namespace GameLogic
         /// <param name="targetTop"> Final destination Y </param>
         /// <param name="targetLeft"> Final destination X </param>
         /// <param name="obsList"> List of obsticles on the terrain </param>
-        public static void MoveToPosition(IMoveble item, int targetTop, int targetLeft, List<ImageProperties> obsList)
+        public static void MoveToPosition(IMoveble item, int targetTop, int targetLeft, List<Obsticle> obsList)
         {
             // set global vars
             hit = false;
             obsticlesList = obsList;
             itemToMove = item;
-            _targettop = targetTop - (item.ImageBitmap.Height / 2);
-            _targetleft = targetLeft - (item.ImageBitmap.Width / 2);
+            _targettop = targetTop - (item.ExploreImage.Height / 2);
+            _targetleft = targetLeft - (item.ExploreImage.Width / 2);
             // stop if the item is moving
             Stop();
             // drow a new path to follow
@@ -105,8 +105,8 @@ namespace GameLogic
                         }
                     }
                     // we add the point to the path
-                    Rectangle r = new Rectangle(newLeft, newTop, itemToMove.ImageBitmap.Width, itemToMove.ImageBitmap.Height);
-                    foreach (ImageProperties obs in obsticlesList)
+                    Rectangle r = new Rectangle(newLeft, newTop, itemToMove.ExploreImage.Width, itemToMove.ExploreImage.Height);
+                    foreach (Obsticle obs in obsticlesList)
                     {
                         hit = HitCheck(r, obs);
                         if (hit)
@@ -194,7 +194,7 @@ namespace GameLogic
         /// <param name="firstObject"></param>
         /// <param name="secondObject"></param>
         /// <returns></returns>
-        private static bool HitCheck(Rectangle firstObject, ImageProperties secondObject)
+        private static bool HitCheck(Rectangle firstObject, Obsticle secondObject)
         {
             Tuple<int, int>[] points = new Tuple<int, int>[4];
             points[0] = new Tuple<int, int>(firstObject.Y, firstObject.X);
@@ -204,9 +204,9 @@ namespace GameLogic
             for (int i = 0; i < points.Length; i++)
             {
                 if (
-                    (points[i].Item1 >= secondObject.PositionTop && points[i].Item1 <= secondObject.PositionTop + secondObject.ImageBitmap.Height)
+                    (points[i].Item1 >= secondObject.PositionTop && points[i].Item1 <= secondObject.PositionTop + secondObject.ExploreImage.Height)
                     &&
-                    (points[i].Item2 >= secondObject.PositionLeft && points[i].Item2 <= secondObject.PositionLeft + secondObject.ImageBitmap.Width)
+                    (points[i].Item2 >= secondObject.PositionLeft && points[i].Item2 <= secondObject.PositionLeft + secondObject.ExploreImage.Width)
                     )
                 {
                     return true;

@@ -44,15 +44,18 @@
     <Compile Include="Background.cs" />
     <Compile Include="BackgroundSound.cs" />
     <Compile Include="Creature.cs" />
-    <Compile Include="Enemy.cs" />
     <Compile Include="Events.cs" />
-    <Compile Include="Hero.cs" />
+    <Compile Include="Heroes\BaseHero.cs" />
+    <Compile Include="Heroes\BaseHeroTwo.cs" />
+    <Compile Include="Heroes\Hero.cs" />
+    <Compile Include="Heroes\List.cs" />
     <Compile Include="IMoveble.cs" />
     <Compile Include="IObsticle.cs" />
-    <Compile Include="ImageProperties.cs" />
+    <Compile Include="Obsticle.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="Obsticles\Enemy.cs" />
+    <Compile Include="Obsticles\StaticObsticle.cs" />
     <Compile Include="SortByTopPosition.cs" />
-    <Compile Include="StaticObsticle.cs" />
     <Compile Include="Terrain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -62,6 +65,10 @@
       <Name>GameCommon</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

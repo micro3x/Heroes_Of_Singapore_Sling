@@ -17,6 +17,7 @@ using GameLogic;
 
 namespace UserInterface
 {
+
     public partial class MainScreen : Form
     {
 
@@ -26,23 +27,73 @@ namespace UserInterface
 
         // the hero class is not ready so I just create one temp!!!
         // Daniel I know this is ugly... 
-        Hero currentHero = new Hero()
+        /*Hero player = new Hero()
         {
             ImageBitmap = new Bitmap(Environment.CurrentDirectory + "\\Images\\Hero\\hero.png", true),
             Height = 50,
             Width = 45,
             PositionTop = 200,
             PositionLeft = 200,
-            ObsticleType = ObsticleType.Createre
-        };
+            ObsticleType = ObsticleType.Creature
+        };*/
+        
+        //TODO - Make Starting Menu for choosing different Heroes and entering Hero Name
+        //switch from buttons
+        /*private void AOnClick(object sender, EventArgs eventArgs)
+        {
+            // cast the sender to a control
+            var obsticleClicked = (ObsticleDisplayBox)sender;
+            // Here we determine what we clicked.
+            // first from the "obsticleClicked" we take the ID of the object from the list
+            // then we take the object from the list of obsticles in the terrain and
+            // determine it's type :)
+            switch (t.TerrainObsticles[HeroClicked.ItemId].HeroType)
+            {
+                case HeroType.BaseHero:
+                    // move to position & Stop
+                    BaseHero player = new BaseHero();
+         * continue to game...
+                     break;
+                case HeroType.SecondHero:
+                   Second player = new SecondHero();
+         * continue to game...
+                     break;
+               and other heroes......
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }*/
+       /* public static Hero SwtichHeroMenu() Or we mace Generic List of Heroes ancestors and we pick them in before-game menu
+        {
+            int changePlayerFromPickHeroMenu = 0;
+            
+            switch (changePlayerFromPickHeroMenu)
+            {
+                case 0:
+                    return new BaseHero("SomeHeroName");
+                    break;
+                case 1:
+                    return new BaseHeroTwo("SomeHeroName");
+                    break;
+                default:
+                    return new BaseHero("SomeHeroName");
+                    break;
+            }
+        }*/
+        //BaseHero player = new BaseHero("SomeHeroName");//case 0
+        BaseHeroTwo player = new BaseHeroTwo("SomeHeroName");//case 1
+       
+       // BaseHeroTwo player = new BaseHeroTwo("SomeHeroName");
+        
         #endregion
-
+        
         #region Constructors
         /// <summary>
         /// this is the default constructor called for the initial Screen
         /// </summary>
         public MainScreen()
         {
+            
             t = new Terrain();
             InitializeComponent();
             BackgroundImage = t.Background;
@@ -51,20 +102,19 @@ namespace UserInterface
             menuStrip1.SetControlZIndex(1000);
             nextScreen = t.TerrainId;
             this.BackColor = Color.DarkGreen;
-
             // I created a Custom user control that I don't need but (see next comment)
             HeroDisplayBox heroDisplay = new HeroDisplayBox();
             // Like I said... this is temporary
             heroDisplay.Name = "hero";
-            heroDisplay.Image = currentHero.ImageBitmap;
-            heroDisplay.Width = currentHero.Width;
-            heroDisplay.Height = currentHero.Height;
-            heroDisplay.Top = currentHero.PositionTop;
-            heroDisplay.Left = currentHero.PositionLeft;
+            heroDisplay.Image = player.ExploreImage;
+            heroDisplay.Width = player.Width;
+            heroDisplay.Height = player.Height;
+            heroDisplay.Top = player.PositionTop;
+            heroDisplay.Left = player.PositionLeft;
             heroDisplay.BackColor = Color.Transparent;
             this.Controls.Add(heroDisplay);
             // here we attach to the event Move of our hero
-            currentHero.Move += MoveHero;
+            player.Move += MoveHero;
             this.Controls[this.Controls.Count -1].BringToFront();
 
         }
@@ -88,15 +138,15 @@ namespace UserInterface
             HeroDisplayBox heroDisplay = new HeroDisplayBox();
             // Like I said... this is temporary
             heroDisplay.Name = "hero";
-            heroDisplay.Image = currentHero.ImageBitmap;
-            heroDisplay.Width = currentHero.Width;
-            heroDisplay.Height = currentHero.Height;
-            heroDisplay.Top = currentHero.PositionTop;
-            heroDisplay.Left = currentHero.PositionLeft;
+            heroDisplay.Image = player.ExploreImage;
+            heroDisplay.Width = player.Width;
+            heroDisplay.Height = player.Height;
+            heroDisplay.Top = player.PositionTop;
+            heroDisplay.Left = player.PositionLeft;
             heroDisplay.BackColor = Color.Transparent;
             this.Controls.Add(heroDisplay);
             // here we attach to the event Move of our hero
-            currentHero.Move += MoveHero;
+            player.Move += MoveHero;
             this.Controls[this.Controls.Count - 1].BringToFront();
         }
         #endregion
@@ -107,7 +157,7 @@ namespace UserInterface
         /// and creates a control for each list item.
         /// </summary>
         /// <param name="inputObsticles"></param>
-        private void AddObsticles(List<ImageProperties> inputObsticles)
+        private void AddObsticles(List<Obsticle> inputObsticles)
         {
             //t.TerrainObsticles.Sort(new DrawingSort());
             for (int i = 0; i < inputObsticles.Count; i++)
@@ -123,7 +173,7 @@ namespace UserInterface
                 a.Height = inputObsticle.Height;
                 a.Width = inputObsticle.Width;
                 // image
-                a.Image = inputObsticle.ImageBitmap;
+                a.Image = inputObsticle.ExploreImage;
                 // make it transperent
                 a.BackColor = Color.Transparent;
                 a.Name = "tree";
@@ -158,6 +208,8 @@ namespace UserInterface
         /// <param name="e"></param>
         void MoveHero(object sender, MoveEventArgs e)
         {
+
+            //player.recieveDamage(5);
             // First we find the DisplayBox
             HeroDisplayBox a = (HeroDisplayBox)this.Controls.Find("hero", true)[0];
             // Since this event is happening in some other Thread (the timer thread)
@@ -182,6 +234,8 @@ namespace UserInterface
         /// <param name="eventArgs"></param>
         private void AOnClick(object sender, EventArgs eventArgs)
         {
+            
+          
             // cast the sender to a control
             var obsticleClicked = (ObsticleDisplayBox)sender;
             // Here we determine what we clicked.
@@ -194,7 +248,7 @@ namespace UserInterface
                     // move to position & Stop
                     MessageBox.Show(String.Format("You Clicked Object ID={0}",obsticleClicked.ItemId));
                     break;
-                case ObsticleType.Createre:
+                case ObsticleType.Creature:
                     // move to position & Fight
                     MessageBox.Show(String.Format("You Clicked Object ID={0}", obsticleClicked.ItemId));
                     break;
@@ -249,7 +303,7 @@ namespace UserInterface
         private void MainScreen_MouseClick(object sender, MouseEventArgs e)
         {
 
-            
+            player.MoveSound.Play();
             // where did we click
             bool changeScreen = false;
             int clickedLeft = e.X;
@@ -260,7 +314,7 @@ namespace UserInterface
             // Heeyyy... Movement Class... I want to move this hero on this terrain to those coordinates
             // And By the way do it step by step... you figure out how!
             Movement.Stop();
-            Movement.MoveToPosition(currentHero , e.Y, e.X, t.TerrainObsticles);
+            Movement.MoveToPosition(player , e.Y, e.X, t.TerrainObsticles);
 
             // this will probably go away! 
             if (clickedTop < 30)

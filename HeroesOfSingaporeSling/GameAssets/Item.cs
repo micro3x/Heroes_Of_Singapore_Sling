@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameAssets
 {
-    public class Item : ImageProperties
+    public class Item : Obsticle
     {
     }
 }

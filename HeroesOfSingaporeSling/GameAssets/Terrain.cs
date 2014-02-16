@@ -14,7 +14,7 @@ namespace GameAssets
     {
         #region Vars
         private readonly Background backgroundFile = new Background((BackgroundType)0);
-        private readonly List<ImageProperties> terrainObsticles = new List<ImageProperties>();
+        private readonly List<Obsticle> terrainObsticles = new List<Obsticle>();
         private int terrainId;
         #endregion
 
@@ -29,7 +29,7 @@ namespace GameAssets
         /// <summary>
         /// returns the list of IObsticles to be created on the terrain
         /// </summary>
-        public List<ImageProperties> TerrainObsticles
+        public List<Obsticle> TerrainObsticles
         {
             get { return terrainObsticles; }
         }

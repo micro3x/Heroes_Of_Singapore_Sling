@@ -25,13 +25,13 @@ namespace GameAssets
 
     public class ObsticleHitEventArgs : EventArgs
     {
-        private ImageProperties _firstObsticle;
-        private ImageProperties _secondObsticle;
+        private Obsticle _firstObsticle;
+        private Obsticle _secondObsticle;
 
-        public ImageProperties firstObsticle { get { return _firstObsticle; } }
-        public ImageProperties secondObsticle { get { return _secondObsticle; } }
+        public Obsticle firstObsticle { get { return _firstObsticle; } }
+        public Obsticle secondObsticle { get { return _secondObsticle; } }
 
-        public ObsticleHitEventArgs(ImageProperties first, ImageProperties second)
+        public ObsticleHitEventArgs(Obsticle first, Obsticle second)
         {
             _firstObsticle = first;
             _secondObsticle = second;
