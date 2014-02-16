@@ -139,7 +139,6 @@ namespace GameAssets
                 this.strengt = value;
             }
         }
-
         #endregion
 
 
