@@ -1,14 +1,22 @@
 ﻿using System;
-
 // Here we will write all Events
 // For example the event Fight, Hit, Obsticle hit ......
+using System.Security.Permissions;
 
 namespace GameAssets
 {
 
     public class LevelUpEventArgs : EventArgs
     {
-        
+        public LevelUpEventArgs(int newLvl, int nextLvlAt)
+        {
+            LevelReached = newLvl;
+            NextLevelAt = nextLvlAt;
+        }
+
+
+        public int LevelReached { get; set; }
+        public int NextLevelAt { get; set; }
     }
     
     public class MoveEventArgs : EventArgs
@@ -38,5 +46,32 @@ namespace GameAssets
         }
     }
 
+    public class BattleEventArgs : EventArgs
+    {
+        private Creature _firstObsticle;
+        private Creature _secondObsticle;
+
+        public Creature firstObsticle { get { return _firstObsticle; } }
+        public Creature secondObsticle { get { return _secondObsticle; } }
+
+        public BattleEventArgs(Creature first, Creature second)
+        {
+            _firstObsticle = first;
+            _secondObsticle = second;
+        }
+    }
+
+
+    public class ChangeScreenEventArgs : EventArgs
+    {
+        private int next;
+
+        public int NextScreen { get { return next; } }
+
+        public ChangeScreenEventArgs(int nextScreen)
+        {
+            next = nextScreen;
+        }
+    }
 
 }

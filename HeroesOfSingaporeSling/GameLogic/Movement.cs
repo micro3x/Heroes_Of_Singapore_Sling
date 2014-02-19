@@ -17,13 +17,26 @@ namespace GameLogic
 {
     public class Movement
     {
+        private delegate void fight();
+
+        private delegate void changeScreen();
+
         #region Global Vars
+        public static event EventHandler<ChangeScreenEventArgs> ChangeTerrain;
+
+        public static void OnChangeScreen(ChangeScreenEventArgs e)
+        {
+            EventHandler<ChangeScreenEventArgs> handler = ChangeTerrain;
+            if (handler != null) handler(null, e);
+        }
+
         static Timer moveTimer;
         private static int _targettop;
         private static int _targetleft;
         private static IMoveble itemToMove;
         private static List<Tuple<int, int>> Path;
         private static bool hit;
+        private static fight startFight = null;
         private static List<Obsticle> obsticlesList;
         #endregion
         /// <summary>
@@ -109,8 +122,16 @@ namespace GameLogic
                     foreach (Obsticle obs in obsticlesList)
                     {
                         hit = HitCheck(r, obs);
+                        if (obs.ObsticleType == ObsticleType.Item)
+                        {
+                            hit = false;
+                        }
                         if (hit)
                         {
+                            if (obs.ObsticleType == ObsticleType.Creature)
+                            {
+                                 startFight = () => Battle.OnBattleStart(new BattleEventArgs((Creature) itemToMove, (Creature) obs));
+                            }
                             return;
                         }
                     }
@@ -139,15 +160,59 @@ namespace GameLogic
             {
                 try
                 {
+                    //moveTimer.Stop();
                     // let's make the step
                     // we call the ChangePosition method in our item because 
                     // it not only changes the position values in our item
                     // but also triggers an event to let anyone listening that we want to move!
                     itemToMove.ChangePosition(Path[0].Item2, Path[0].Item1);
+
+                    int nextScreen = Game.Instance.CurrentTerrain;
+                    int newLocationTop = Path[0].Item2 ;
+                    int newLocationLeft = Path[0].Item1;
+                    // this will probably go away! 
+                    if (Path[0].Item2 < 20)
+                    {
+                        // calculate the next screen
+                        nextScreen -= 3;
+                        newLocationTop = 700;
+                        // We will change the screen
+                        // because we clicked on a border
+                        //changeScreen = true;
+                    }
+                    if (Path[0].Item2 > 708)
+                    {
+                        nextScreen += 3;
+                        newLocationTop = 30;
+                        //changeScreen = true;
+                    }
+                    if (Path[0].Item1 < 20)
+                    {
+                        nextScreen -= 1;
+                        newLocationLeft = 960;
+                        //changeScreen = true;
+                    }
+                    if (Path[0].Item1 > 974)
+                    {
+                        nextScreen += 1;
+                        newLocationLeft = 30;
+                        //changeScreen = true;
+                    }
+                    if (nextScreen != Game.Instance.CurrentTerrain)
+                    {
+                        Stop();
+                        itemToMove.PositionTop = newLocationTop;
+                        itemToMove.PositionLeft = newLocationLeft;
+                        changeScreen aChangeScreen  = () => Movement.OnChangeScreen(new ChangeScreenEventArgs(nextScreen));
+                        aChangeScreen();
+                        // Raise Event Change Screen
+                        // Calling the ChangeScreen if we clicked on a border
+                        //ChangeScreen(nextScreen);
+                    }
                     // we did this step so we can remove it from the path.
                     Path.RemoveAt(0);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     Stop();
                 }
@@ -156,6 +221,11 @@ namespace GameLogic
             {
                 // we don't have a path so why move?
                 Stop();
+                if (startFight != null)
+                {
+                    startFight();
+                    startFight = null;
+                }
             }
         }
         /// <summary>
@@ -168,7 +238,7 @@ namespace GameLogic
             {
                 // Stop Moving
                 moveTimer.Stop();
-                moveTimer.Dispose();
+                moveTimer = new Timer();
             }
         }
 

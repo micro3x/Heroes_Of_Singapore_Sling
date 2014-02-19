@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Media;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,136 +20,41 @@ using GameLogic;
 
 namespace UserInterface
 {
-
     public partial class MainScreen : Form
     {
+        private Game playGame = Game.Instance;
 
         #region Vars
         private Terrain t;
-        private int nextScreen;
-
-        // the hero class is not ready so I just create one temp!!!
-        // Daniel I know this is ugly... 
-        /*Hero player = new Hero()
-        {
-            ImageBitmap = new Bitmap(Environment.CurrentDirectory + "\\Images\\Hero\\hero.png", true),
-            Height = 50,
-            Width = 45,
-            PositionTop = 200,
-            PositionLeft = 200,
-            ObsticleType = ObsticleType.Creature
-        };*/
-        
-        //TODO - Make Starting Menu for choosing different Heroes and entering Hero Name
-        //switch from buttons
-        /*private void AOnClick(object sender, EventArgs eventArgs)
-        {
-            // cast the sender to a control
-            var obsticleClicked = (ObsticleDisplayBox)sender;
-            // Here we determine what we clicked.
-            // first from the "obsticleClicked" we take the ID of the object from the list
-            // then we take the object from the list of obsticles in the terrain and
-            // determine it's type :)
-            switch (t.TerrainObsticles[HeroClicked.ItemId].HeroType)
-            {
-                case HeroType.BaseHero:
-                    // move to position & Stop
-                    BaseHero player = new BaseHero();
-         * continue to game...
-                     break;
-                case HeroType.SecondHero:
-                   Second player = new SecondHero();
-         * continue to game...
-                     break;
-               and other heroes......
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }*/
-       /* public static Hero SwtichHeroMenu() Or we mace Generic List of Heroes ancestors and we pick them in before-game menu
-        {
-            int changePlayerFromPickHeroMenu = 0;
-            
-            switch (changePlayerFromPickHeroMenu)
-            {
-                case 0:
-                    return new BaseHero("SomeHeroName");
-                    break;
-                case 1:
-                    return new BaseHeroTwo("SomeHeroName");
-                    break;
-                default:
-                    return new BaseHero("SomeHeroName");
-                    break;
-            }
-        }*/
-        //BaseHero player = new BaseHero("SomeHeroName");//case 0
-        BaseHeroTwo player = new BaseHeroTwo("SomeHeroName");//case 1
-       
-       // BaseHeroTwo player = new BaseHeroTwo("SomeHeroName");
-        
+        private Hero player;
         #endregion
-        
+
         #region Constructors
         /// <summary>
         /// this is the default constructor called for the initial Screen
         /// </summary>
         public MainScreen()
         {
-            
-            t = new Terrain();
+            t = playGame.Map[playGame.CurrentTerrain - 1];
+            player = playGame.PlayerHero;
             InitializeComponent();
             BackgroundImage = t.Background;
             BackgroundImageLayout = ImageLayout.Tile;
             AddObsticles(t.TerrainObsticles);
-            menuStrip1.SetControlZIndex(1000);
-            nextScreen = t.TerrainId;
-            this.BackColor = Color.DarkGreen;
-            // I created a Custom user control that I don't need but (see next comment)
-            HeroDisplayBox heroDisplay = new HeroDisplayBox();
-            // Like I said... this is temporary
-            heroDisplay.Name = "hero";
-            heroDisplay.Image = player.ExploreImage;
-            heroDisplay.Width = player.Width;
-            heroDisplay.Height = player.Height;
-            heroDisplay.Top = player.PositionTop;
-            heroDisplay.Left = player.PositionLeft;
-            heroDisplay.BackColor = Color.Transparent;
-            this.Controls.Add(heroDisplay);
-            // here we attach to the event Move of our hero
-            player.Move += MoveHero;
-            this.Controls[this.Controls.Count -1].BringToFront();
-
-        }
-        /// <summary>
-        /// By calling this constructor we can generate a specific terrain
-        /// </summary>
-        /// <param name="terrainID">the id of the terrain we want to display </param>
-        public MainScreen(int terrainID)
-        {
-            t = new Terrain(terrainID);
-            
-            BackgroundImage = t.Background;
-            BackgroundImageLayout = ImageLayout.Tile;
-            InitializeComponent();
-            AddObsticles(t.TerrainObsticles);
-            nextScreen = t.TerrainId;
             menuStrip1.BringToFront();
             this.BackColor = Color.DarkGreen;
-
             // I created a Custom user control that I don't need but (see next comment)
-            HeroDisplayBox heroDisplay = new HeroDisplayBox();
+            HeroDisplayBox heroDisplay = new HeroDisplayBox(
+                player.ExploreImage,
+                player.Width,
+                player.Height,
+                player.PositionTop,
+                player.PositionLeft
+                );
             // Like I said... this is temporary
-            heroDisplay.Name = "hero";
-            heroDisplay.Image = player.ExploreImage;
-            heroDisplay.Width = player.Width;
-            heroDisplay.Height = player.Height;
-            heroDisplay.Top = player.PositionTop;
-            heroDisplay.Left = player.PositionLeft;
-            heroDisplay.BackColor = Color.Transparent;
             this.Controls.Add(heroDisplay);
             // here we attach to the event Move of our hero
-            player.Move += MoveHero;
+            AttachEvents();
             this.Controls[this.Controls.Count - 1].BringToFront();
         }
         #endregion
@@ -178,29 +86,79 @@ namespace UserInterface
                 a.BackColor = Color.Transparent;
                 a.Name = "tree";
                 a.ItemId = i;
+                a.Tag = inputObsticle.ToString();
                 // what happens when you click the obsticle
-                a.Click += AOnClick;
+                a.MouseClick += AOnClick;
                 // finally we put the object on the form
                 this.Controls.Add(a);
             }
         }
+
+        private void DetachEvents()
+        {
+            player.Move -= MoveHero;
+            Battle.BattleStart -= this.BattleStartNew;
+            Movement.ChangeTerrain -= ChangeScreen;
+        }
+
+        private void AttachEvents()
+        {
+            player.Move += MoveHero;
+            Battle.BattleStart += this.BattleStartNew;
+            Movement.ChangeTerrain += ChangeScreen;
+        }
+        
+        
+        #endregion
+
+        #region Event Handelers
         /// <summary>
         /// This method is used to change the screen when you move out of the current one
         /// </summary>
         /// <param name="next">which screen we will display next</param>
-        private void ChangeScreen(int next)
+        private void ChangeScreen(object sender, ChangeScreenEventArgs e)
         {
-            // create the new screen
-            MainScreen nextScreenForm1 = new MainScreen(next);
-            Movement.Stop();
-            // display the new screen
-            nextScreenForm1.Show();
-            // close the old screen
-            this.Close();
+            if (InvokeRequired)
+            {
+                // if we are here this means only this thread can touch our form!
+                // So we call the invoke method with the delegate Action and create 
+                // an anonimous method to do the job.
+                this.Invoke((Action)(() =>
+                {
+                    Movement.Stop();
+                    // create the new screen
+                    playGame.CurrentTerrain = e.NextScreen;
+                    //t = playGame.Map[playGame.CurrentTerrain - 1];
+                    //this.Refresh();
+                    MainScreen nextScreenForm1 = new MainScreen();
+                    DetachEvents();
+                    // display the new screen
+                    nextScreenForm1.Show();
+                    this.Close();
+                    // close the old screen
+                }));
+            }
+            else
+            {
+                Movement.Stop();
+                // create the new screen
+                playGame.CurrentTerrain = e.NextScreen;
+                //t = playGame.Map[playGame.CurrentTerrain - 1];
+                //this.Refresh();
+                MainScreen nextScreenForm1 = new MainScreen();
+                DetachEvents();
+                // display the new screen
+                nextScreenForm1.Show();
+                this.Close();
+                // close the old screen
+            }
         }
-        #endregion
 
-        #region Event Handelers
+        void BattleStartNew(object sender, BattleEventArgs e)
+        {
+            MessageBox.Show("FIGHT!!");
+        }
+
         /// <summary>
         /// Our hero Moved so we must show it on the Form
         /// </summary>
@@ -208,10 +166,10 @@ namespace UserInterface
         /// <param name="e"></param>
         void MoveHero(object sender, MoveEventArgs e)
         {
-
             //player.recieveDamage(5);
             // First we find the DisplayBox
-            HeroDisplayBox a = (HeroDisplayBox)this.Controls.Find("hero", true)[0];
+            MainScreen b = this;
+            HeroDisplayBox a = (HeroDisplayBox)this.Controls.Find("hero" , true)[0];
             // Since this event is happening in some other Thread (the timer thread)
             // we check if some other thread can do something on our Form
             if (InvokeRequired)
@@ -225,6 +183,11 @@ namespace UserInterface
                     a.Left = e.posLeft;
                 }));
             }
+            else
+            {
+                a.Top = e.posTop;
+                a.Left = e.posLeft;
+            }
             // we moved!
         }
         /// <summary>
@@ -232,32 +195,42 @@ namespace UserInterface
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        private void AOnClick(object sender, EventArgs eventArgs)
+        private void AOnClick(object sender, MouseEventArgs eventArgs)
         {
-            
-          
-            // cast the sender to a control
-            var obsticleClicked = (ObsticleDisplayBox)sender;
-            // Here we determine what we clicked.
-            // first from the "obsticleClicked" we take the ID of the object from the list
-            // then we take the object from the list of obsticles in the terrain and
-            // determine it's type :)
-            switch (t.TerrainObsticles[obsticleClicked.ItemId].ObsticleType)
+            if (eventArgs.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                case ObsticleType.Static:
-                    // move to position & Stop
-                    MessageBox.Show(String.Format("You Clicked Object ID={0}",obsticleClicked.ItemId));
-                    break;
-                case ObsticleType.Creature:
-                    // move to position & Fight
-                    MessageBox.Show(String.Format("You Clicked Object ID={0}", obsticleClicked.ItemId));
-                    break;
-                case ObsticleType.Item:
-                    // move to position and Take
-                    MessageBox.Show(String.Format("You Clicked Object ID={0}", obsticleClicked.ItemId));
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                MessageBox.Show(sender.ToString());
+            }
+            else
+            {
+                // cast the sender to a control
+                var controlClicked = (ObsticleDisplayBox) sender;
+                // Here we determine what we clicked.
+                // first from the "obsticleClicked" we take the ID of the object from the list
+                // then we take the object from the list of obsticles in the terrain and
+                // determine it's type :)
+                var obsticleClicked = t.TerrainObsticles[controlClicked.ItemId];
+                Point centerOfObsticle = new Point(obsticleClicked.PositionLeft + (obsticleClicked.Width/2),
+                    obsticleClicked.PositionTop + (obsticleClicked.Height/2));
+                switch (obsticleClicked.ObsticleType)
+                {
+                    case ObsticleType.Static:
+                        Movement.MoveToPosition(player, centerOfObsticle.Y, centerOfObsticle.X, t.TerrainObsticles);
+                        break;
+                    case ObsticleType.Creature:
+                        Movement.MoveToPosition(player, centerOfObsticle.Y, centerOfObsticle.X, t.TerrainObsticles);
+                        // move to position & Fight
+                        //MessageBox.Show(String.Format("You Clicked Object ID={0}", controlClicked.ItemId));
+                        break;
+                    case ObsticleType.Item:
+                        Movement.MoveToPosition(player, centerOfObsticle.Y, centerOfObsticle.X, t.TerrainObsticles);
+                        // move to position and Take
+                        MessageBox.Show(String.Format("You Clicked Object ID={0} And You Can take it!",
+                            controlClicked.ItemId));
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
         }
 
@@ -268,6 +241,7 @@ namespace UserInterface
         /// <param name="e"></param>
         private void inventoryButton_Click(object sender, EventArgs e)
         {
+            Movement.Stop();
             //first we close all opened forms if any
             if (this.OwnedForms.Length > 0)
             {
@@ -277,10 +251,10 @@ namespace UserInterface
                 }
             }
             // then we create the inventory form
-            Inventory inv = new Inventory();
+            InventoryDisplay inv = new InventoryDisplay();
             this.AddOwnedForm(inv);
             // set the position on the screen depending on the MainScreen
-            inv.Location = new Point(MainScreen.ActiveForm.Location.X + 10,ActiveForm.Location.Y + 30);
+            inv.Location = new Point(MainScreen.ActiveForm.Location.X + 10, ActiveForm.Location.Y + 30);
             // Display the inventory
             inv.ShowDialog();
         }
@@ -302,50 +276,85 @@ namespace UserInterface
         /// <param name="e"></param>
         private void MainScreen_MouseClick(object sender, MouseEventArgs e)
         {
-
-            player.MoveSound.Play();
-            // where did we click
-            bool changeScreen = false;
-            int clickedLeft = e.X;
-            int clickedTop = e.Y;
-            // if we clicked on the border
-            // we prepare to change the screen
-
             // Heeyyy... Movement Class... I want to move this hero on this terrain to those coordinates
             // And By the way do it step by step... you figure out how!
             Movement.Stop();
-            Movement.MoveToPosition(player , e.Y, e.X, t.TerrainObsticles);
+            Movement.MoveToPosition(player, e.Y, e.X, t.TerrainObsticles);
+        }
 
-            // this will probably go away! 
-            if (clickedTop < 30)
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
             {
-                // calculate the next screen
-                nextScreen -= 3;
-                // We will change the screen
-                // because we clicked on a border
-                changeScreen = true;
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream("Savegame.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+                DetachEvents();
+                formatter.Serialize(stream, Game.Instance);
+                stream.Close();
+                AttachEvents();
             }
-            if (clickedTop > 738)
+            catch (Exception ex)
             {
-                nextScreen += 3;
-                changeScreen = true;
+                MessageBox.Show(ex.Message);
             }
-            if (clickedLeft < 30)
+        }
+        
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
             {
-                nextScreen -= 1;
-                changeScreen = true;
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream("Savegame.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
+                Game loading = Game.Instance;
+                Game loaded = formatter.Deserialize(stream) as Game;
+                stream.Close();
+                loading.CurrentTerrain = loaded.CurrentTerrain;
+                loading.Map = loaded.Map;
+                loading.PlayerHero = loaded.PlayerHero;
+                MainScreen startMainScreen = new MainScreen();
+                startMainScreen.Show();
+                DetachEvents();
+                this.Close();
             }
-            if (clickedLeft > 994)
+            catch (FileNotFoundException)
             {
-                nextScreen += 1;
-                changeScreen = true;
+                MessageBox.Show("Save Game not found!");
             }
-            if (changeScreen)
+            catch (Exception ex)
             {
-                // Calling the ChangeScreen if we clicked on a border
-                ChangeScreen(nextScreen);
+                MessageBox.Show(ex.Message);
             }
+        }
 
+
+        private void restartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Movement.Stop();
+            DetachEvents();
+            Terrain[] map = new Terrain[]
+            {
+                new Terrain(1), 
+                new Terrain(2), 
+                new Terrain(3), 
+                new Terrain(4), 
+                new Terrain(5), 
+                new Terrain(6), 
+                new Terrain(7), 
+                new Terrain(8), 
+                new Terrain(9), 
+            };
+            player.PositionTop = 200;
+            player.PositionLeft = 200;
+            if (player != null)
+            {
+                Game initGame = Game.Instance;
+                initGame.Map = map;
+                initGame.PlayerHero = player;
+                initGame.CurrentTerrain = 5;
+                MainScreen startMainScreen = new MainScreen();
+                startMainScreen.Show();
+                this.Close();
+            }
         }
         #endregion
     }

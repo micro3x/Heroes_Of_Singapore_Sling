@@ -10,12 +10,14 @@ namespace GameAssets
     /// <summary>
     /// Used to generate a terrain to be displayed on the MainScreen
     /// </summary>
+    [Serializable]
     public class Terrain
     {
         #region Vars
         private readonly Background backgroundFile = new Background((BackgroundType)0);
         private readonly List<Obsticle> terrainObsticles = new List<Obsticle>();
         private int terrainId;
+
         #endregion
 
         #region Proparties
@@ -51,6 +53,8 @@ namespace GameAssets
         {
             terrainId = 5;
             GenerateObsticles();
+            GenerateEnemies();
+            GenerateItems();
         }
         /// <summary>
         /// Overload of the constructor for creating a terrain with specific ID
@@ -60,6 +64,8 @@ namespace GameAssets
         {
             terrainId = nextTerrainId;
             GenerateObsticles();
+            GenerateEnemies();
+            GenerateItems();
         }
         #endregion
 
@@ -86,6 +92,50 @@ namespace GameAssets
                             .ToArray();
                     // here we create and put the obsticle in the list
                     terrainObsticles.Add(new StaticObsticle((StaticObsticleType)thisObsticle[0],thisObsticle[1],thisObsticle[2]));
+                    current = sr.ReadLine();
+                }
+            }
+        }
+        private void GenerateEnemies()
+        {
+            //Reading the file in Map directory
+            StreamReader sr = new StreamReader(Environment.CurrentDirectory + "\\Map\\e" + terrainId + ".mappart");
+            using (sr)
+            {
+                string current = sr.ReadLine();
+                while (current != null)
+                {
+                    // each line holds the basic values for a obsticle separated with comma
+                    // here we split, parse and put the values in an array
+                    // first value is Type, second is Position Top, thirth is Position Left
+                    int[] thisObsticle =
+                        current.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(x => int.Parse(x))
+                            .ToArray();
+                    // here we create and put the obsticle in the list
+                    terrainObsticles.Add(Enemy.Zombie(thisObsticle[0],thisObsticle[1]));
+                    current = sr.ReadLine();
+                }
+            }
+        }
+        private void GenerateItems()
+        {
+            //Reading the file in Map directory
+            StreamReader sr = new StreamReader(Environment.CurrentDirectory + "\\Map\\i" + terrainId + ".mappart");
+            using (sr)
+            {
+                string current = sr.ReadLine();
+                while (current != null)
+                {
+                    // each line holds the basic values for a obsticle separated with comma
+                    // here we split, parse and put the values in an array
+                    // first value is Type, second is Position Top, thirth is Position Left
+                    int[] thisObsticle =
+                        current.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(x => int.Parse(x))
+                            .ToArray();
+                    // here we create and put the obsticle in the list
+                    terrainObsticles.Add(WeaponArmor.GetRandomWeaponArmor(thisObsticle[0], thisObsticle[1]));
                     current = sr.ReadLine();
                 }
             }

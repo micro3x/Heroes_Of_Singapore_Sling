@@ -14,13 +14,21 @@ namespace UserInterface.UserControls
 {
     public partial class HeroDisplayBox : PictureBox
     {
-        public HeroDisplayBox()
+        public HeroDisplayBox(
+            Bitmap exploreImage,
+            int width,
+            int height,
+            int positionTop,
+            int positionLeft)
         {
             InitializeComponent();
-            this.BackColor = Color.Transparent;
-            this.ForeColor = Color.Transparent;
-            base.ForeColor = Color.Transparent;
-            base.BackColor = Color.Transparent;
+            base.Name = "hero";
+            base.Image = exploreImage;
+            Width = width;
+            Height = height;
+            Top = positionTop;
+            Left = positionLeft;
+            BackColor = Color.Transparent;
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -28,8 +36,8 @@ namespace UserInterface.UserControls
             base.OnPaint(e);
             // Call methods of the System.Drawing.Graphics object.
             //e.Graphics.DrawString(Text, Font, new SolidBrush(ForeColor), ClientRectangle);
-            e.Graphics.DrawImage(Image,ClientRectangle);
-        } 
+            e.Graphics.DrawImage(Image, ClientRectangle);
+        }
 
     }
 }

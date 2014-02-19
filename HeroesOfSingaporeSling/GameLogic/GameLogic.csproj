@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Battle.cs" />
     <Compile Include="Damage.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Magic.cs" />
     <Compile Include="Movement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

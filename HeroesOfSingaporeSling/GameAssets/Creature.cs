@@ -3,121 +3,131 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Media;
+using System.Security.Permissions;
+using GameCommon;
 
 namespace GameAssets
 {
-    public enum BattaleImageType 
+    [Serializable]
+    public abstract class Creature : Obsticle
     {
-        MapImage, ExploreImage, BattleImageStandLeftFootInFront, BattleImageStandRightFootInFront, BattleImageHit, BattleImageTakeHit, BattleImageJump, BattleImageDuck
-    }
-    public enum CreatureSoundType
-    {
-        HitSound, TakeHitSound, JumpSound, DuckSound, 
-    }
-    public class Creature : Obsticle
-    {
+        private string _name;
+        private int _healt;
+        private int _maxHealt;
 
-        public static SoundPlayer HeroSounds = new SoundPlayer("C:\\Users\\daniel\\Desktop\\HeroesOfSingaporeSling\\Sounds\\Hero\\SampleHero\\SuchkiSubiram.wav");
+        private int _defence;
+        private int _speed;
 
-        private string name;
-        private string healt;
-        private string defence;
-        private string speed;
-        private string mana;
-        private string damage;
-        private List<Bitmap> creatureBattleImages;
-        private List<SoundPlayer> creatureSounds;
-        
+        private int _minDamage;
+        private int _maxDamage;
 
-        public List<SoundPlayer> CreatureSounds
+
+
+        protected Creature(string name, int maxHealt, int defence, int speed, int minDamage, int maxDamage)
         {
-            get { return this.creatureSounds; }
-            set
-            {
-                this.creatureSounds = value;
-            }
+            Name = name;
+            Healt = maxHealt;
+            MaxHealt = maxHealt;
+            Defence = defence;
+            Speed = speed;
+            MinDamage = minDamage;
+            MaxDamage = maxDamage;
         }
-        public SoundPlayer MoveSound { get; set; }
-        public List<Bitmap> CreatureBattleImages
-        {
-            get { return this.creatureBattleImages; }
-            set 
-            {
-                this.creatureBattleImages = value;
-            }
-        }
-
-
-       
 
         public string Name
+        {
+            get
             {
-                get { return this.name; }
-                set // could validate in game manu for choosing hero
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
+        }
+
+        public virtual int Healt
+        {
+            get { return _healt; }
+            protected set
+            {
+                _healt = value;
+            }
+        }
+
+        public virtual int MaxHealt
+        {
+            get { return _maxHealt; }
+            protected set
+            {
+                if (value < 1)
                 {
-                    this.name = value;
+                    throw new CannotBeNegative("MaxHealt must be greater then 1");
+                }
+                _maxHealt = value;
+            }
+        }
+
+        public virtual int Defence
+        {
+            get { return _defence; }
+            protected set
+            {
+                if (value >= 0 && value <= 100)
+                {
+                    _defence = value;    
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("Defence is a percent value and must be between 0 and 100");
                 }
             }
+        }
 
-            public string Healt
+        public virtual int Speed
+        {
+            get { return _speed; }
+            protected set
             {
-                get { return healt; }
-                set
+                if (value < 0)
                 {
-                    healt = value;
+                    throw new CannotBeNegative("The value of speed cannot be a negative");
                 }
-
+                _speed = value;
             }
+        }
 
-            public string Defence
+        public virtual int MinDamage
+        {
+            get { return _minDamage; }
+            protected set
             {
-                get { return defence; }
-                set
+                if (value < 0)
                 {
-                    defence = value;
+                    throw new CannotBeNegative("Minimum damage cannot be negative");
                 }
+                _minDamage = value;
             }
+        }
 
-            public string Speed
+        public virtual int MaxDamage
+        {
+            get { return _maxDamage; }
+            protected set
             {
-                get { return speed; }
-                set
+                if (value < 0)
                 {
-                    speed = value;
+                    throw new CannotBeNegative("Minimum damage cannot be negative");    
                 }
+                _maxDamage = value;
             }
+        }
 
-            public string Mana
-            {
-                get { return mana; }
-                set
-                {
-                    mana = value;
-                }
-            }
+        public int GetHitDamage()
+        {
+            return RandomGenerator.GetRandom(MinDamage, MaxDamage);
+        }
 
-            public string Damage
-            {
-                get { return damage; }
-                set
-                {
-                    damage = value;
-                }
-            }
 
-            //in battle:
-            //if(enemyHitUs){ 
-            //player.TakeDamage(enemy.MakeDamage());}
-            //if(weHitEnemy){enemy1.TakeDamage(playr.MakeDamageA());
-            public void TakeDamage(int DamageTaken)
-            {
-                this.Healt = ((Convert.ToInt32(this.Healt) - DamageTaken)).ToString();   //ToDODefence
-            }
-
-            public int MakeDamage()
-            {
-                return Convert.ToInt32(this.Damage);//+ item[1] (sword) and some bonuses to damage or magic bonus to dmg
-            }
-        
     }
 }

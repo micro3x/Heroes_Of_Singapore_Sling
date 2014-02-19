@@ -2,7 +2,10 @@
 
 namespace GameCommon
 {
-    
+    public enum WearLocation
+    {
+        
+    }
 
    
 

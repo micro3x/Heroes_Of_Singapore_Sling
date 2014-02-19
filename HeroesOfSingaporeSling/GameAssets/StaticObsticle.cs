@@ -10,7 +10,7 @@ public enum StaticObsticleType
 
 namespace GameAssets
 {
-
+    [Serializable]
     public class StaticObsticle : Obsticle
     {
         public static Dictionary<StaticObsticleType, string> StaticObsticleImagePathDict =

@@ -16,6 +16,7 @@
     /// <summary>
     /// This is the abstract class that all types of obsticles will inherit.
     /// </summary>
+    [Serializable]
     public abstract class Obsticle //: IObsticle
     {
         public int Width { get; set; }

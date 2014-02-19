@@ -9,11 +9,11 @@ namespace GameAssets
     {
         Grass, Water, SomethingElse
     }
-    
+
     /// <summary>
     /// Used to get the background for the MainScreen
     /// </summary>
-    /// 
+    [Serializable]
     public class Background : Obsticle
     {
         public static Dictionary<BackgroundType, string> BackgroundImagePathDict =
@@ -25,10 +25,10 @@ namespace GameAssets
         #region Proparties
         public Bitmap BackgroundImage
         {
-           get { return ExploreImage; }
+            get { return ExploreImage; }
         }
         #endregion
-       
+
         #region Constructors
         public Background(BackgroundType backgroundType)
         {
@@ -37,7 +37,7 @@ namespace GameAssets
         #endregion
 
         #region Methods
-       
+
         /// <summary>
         /// Sets the image propartie
         /// </summary>

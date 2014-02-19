@@ -16,5 +16,10 @@ namespace UserInterface.UserControls
             get { return _itemId; }
             set { _itemId = value; }
         }
+
+        public override string ToString()
+        {
+            return this.Tag.ToString();
+        }
     }
 }

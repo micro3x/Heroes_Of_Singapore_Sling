@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace GameAssets.Heroes
+namespace GameAssets
 {
-    class List<T1, T2>
+    abstract class Magic
     {
     }
 }
