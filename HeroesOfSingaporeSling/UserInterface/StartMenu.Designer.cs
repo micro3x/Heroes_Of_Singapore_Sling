@@ -36,7 +36,7 @@
             // NewGame
             // 
             this.NewGame.BackColor = System.Drawing.SystemColors.Control;
-            this.NewGame.Font = new System.Drawing.Font("Monotype Corsiva", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.NewGame.Font = new System.Drawing.Font("Monotype Corsiva", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.NewGame.Location = new System.Drawing.Point(476, 33);
             this.NewGame.Name = "NewGame";
             this.NewGame.Size = new System.Drawing.Size(169, 54);

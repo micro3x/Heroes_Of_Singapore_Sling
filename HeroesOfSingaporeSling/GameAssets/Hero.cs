@@ -270,7 +270,7 @@ namespace GameAssets
             paladin.ObsticleType = ObsticleType.Creature;
             paladin.PositionTop = 200;
             paladin.PositionLeft = 200;
-            paladin.ExploreImage = new Bitmap(Environment.CurrentDirectory + "\\Images\\Hero\\heroAgent.png", true);
+            paladin.ExploreImage = new Bitmap(Environment.CurrentDirectory + "\\Images\\Hero\\paladinHero.png", true);
             paladin.Width = paladin.ExploreImage.Width;
             paladin.Height = paladin.ExploreImage.Height;
             return paladin;
