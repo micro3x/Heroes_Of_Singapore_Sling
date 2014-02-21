@@ -33,16 +33,22 @@ namespace GameAssets
             var space = CalculateGridSpace(item);
             if (isMove)
             {
-                
                 var spaceToRelease = CalculateGridSpace(item);
                 var positionToRelease = CalculatePositionToGrid( item.PositionTop,item.PositionLeft);
                 ReleeseSpace(spaceToRelease, positionToRelease);
-                if (!DropToInventory(item, dropLocationLeft, dropLocationTop))
+                if (OccupyedSpaceCheck(space, position))
                 {
-                    DropToInventory(item, positionToRelease.Item2*20, positionToRelease.Item1*20);
-                    return false;
+                    
+                    item.PositionLeft = position.Item2 * 20;
+                    item.PositionTop = position.Item1 * 20;
+                    OccupySpace(space, position);
+                    return true;
+                    //maybe raise event
                 }
-                containingItems.RemoveAt(containingItems.FindIndex(i => i.Id == item.Id));
+                else
+                {
+                    OccupySpace(spaceToRelease, positionToRelease);
+                }
                 return true;
             }
             else

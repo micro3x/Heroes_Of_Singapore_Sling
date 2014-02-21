@@ -35,6 +35,7 @@ namespace UserInterface
         /// </summary>
         public MainScreen()
         {
+            
             t = playGame.Map[playGame.CurrentTerrain - 1];
             player = playGame.PlayerHero;
             InitializeComponent();
@@ -204,11 +205,12 @@ namespace UserInterface
             else
             {
                 // cast the sender to a control
-                var controlClicked = (ObsticleDisplayBox)sender;
+                var controlClicked = (ObsticleDisplayBox) sender;
                 // Here we determine what we clicked.
                 // first from the "obsticleClicked" we take the ID of the object from the list
                 // then we take the object from the list of obsticles in the terrain and
                 // determine it's type :)
+
                 var obsticleClicked = t.TerrainObsticles[controlClicked.ItemId];
                 Point centerOfObsticle = new Point(obsticleClicked.PositionLeft + (obsticleClicked.Width / 2),
                     obsticleClicked.PositionTop + (obsticleClicked.Height / 2));
@@ -230,6 +232,17 @@ namespace UserInterface
                             {
                                 t.TerrainObsticles.RemoveAt(controlClicked.ItemId);
                                 this.Controls.Remove(sender as Control);
+                                for (int i = Controls.Count - 1; i >= 0 ; i--)
+                                {
+                                    Type b = Controls[i].GetType();
+                                    if (Controls[i].GetType() == typeof(ObsticleDisplayBox))
+                                    {
+                                        Type a = Controls[i].GetType();
+                                        this.Controls.Remove(Controls[i] as ObsticleDisplayBox);
+                                    }
+                                }
+                                AddObsticles(t.TerrainObsticles);
+                                this.Refresh();
                             }
                         }
                         break;
@@ -361,5 +374,18 @@ namespace UserInterface
             }
         }
         #endregion
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                if (Environment.OSVersion.Version.Major >= 6)
+                {
+                    cp.ExStyle |= 0x02000000;
+                }
+                return cp;
+            }
+        }
     }
 }

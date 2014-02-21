@@ -68,7 +68,7 @@ namespace GameLogic
             // drow a new path to follow
             CalculatePath();
             // set the timer
-            moveTimer = new Timer(50);
+            moveTimer = new Timer(15);
             moveTimer.Elapsed += new ElapsedEventHandler(TimerTick);
             // Go Baby Go
             moveTimer.Start();
@@ -152,7 +152,7 @@ namespace GameLogic
             // so we take every 5th point in the path and create a new path
             // with less steps
             Build();
-            int step = 5;
+            int step = 2;
             Path = Path.Where((x, i) => i % step == 0).ToList();
         }
         /// <summary>
