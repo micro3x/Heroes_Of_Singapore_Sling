@@ -31,6 +31,7 @@ namespace UserInterface
 
         private void NewGame_Click(object sender, EventArgs e)
         {
+            Game initGame = Game.Instance;
             Terrain[] map = new Terrain[]
             {
                 new Terrain(1), 
@@ -46,13 +47,10 @@ namespace UserInterface
             CharacterSelection heroSelection = new CharacterSelection();
             heroSelection.ShowDialog(this);
 
-            if (this.HeroId != null)
+            if (initGame.PlayerHero != null)
             {
-                Game initGame = Game.Instance;
                 initGame.Map = map;
-                initGame.PlayerHero = HeroId;
                 initGame.CurrentTerrain = 5;
-
                 MainScreen startMainScreen = new MainScreen();
                 startMainScreen.Show();
                 this.Close();

@@ -51,6 +51,7 @@
     <Compile Include="HeroSpell.cs" />
     <Compile Include="IMoveble.cs" />
     <Compile Include="IObsticle.cs" />
+    <Compile Include="ITakeble.cs" />
     <Compile Include="IWearable.cs" />
     <Compile Include="Magic.cs" />
     <Compile Include="Obsticle.cs" />

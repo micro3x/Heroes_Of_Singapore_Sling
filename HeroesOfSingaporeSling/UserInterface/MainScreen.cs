@@ -107,8 +107,8 @@ namespace UserInterface
             Battle.BattleStart += this.BattleStartNew;
             Movement.ChangeTerrain += ChangeScreen;
         }
-        
-        
+
+
         #endregion
 
         #region Event Handelers
@@ -169,7 +169,7 @@ namespace UserInterface
             //player.recieveDamage(5);
             // First we find the DisplayBox
             MainScreen b = this;
-            HeroDisplayBox a = (HeroDisplayBox)this.Controls.Find("hero" , true)[0];
+            HeroDisplayBox a = (HeroDisplayBox)this.Controls.Find("hero", true)[0];
             // Since this event is happening in some other Thread (the timer thread)
             // we check if some other thread can do something on our Form
             if (InvokeRequired)
@@ -204,14 +204,14 @@ namespace UserInterface
             else
             {
                 // cast the sender to a control
-                var controlClicked = (ObsticleDisplayBox) sender;
+                var controlClicked = (ObsticleDisplayBox)sender;
                 // Here we determine what we clicked.
                 // first from the "obsticleClicked" we take the ID of the object from the list
                 // then we take the object from the list of obsticles in the terrain and
                 // determine it's type :)
                 var obsticleClicked = t.TerrainObsticles[controlClicked.ItemId];
-                Point centerOfObsticle = new Point(obsticleClicked.PositionLeft + (obsticleClicked.Width/2),
-                    obsticleClicked.PositionTop + (obsticleClicked.Height/2));
+                Point centerOfObsticle = new Point(obsticleClicked.PositionLeft + (obsticleClicked.Width / 2),
+                    obsticleClicked.PositionTop + (obsticleClicked.Height / 2));
                 switch (obsticleClicked.ObsticleType)
                 {
                     case ObsticleType.Static:
@@ -220,13 +220,18 @@ namespace UserInterface
                     case ObsticleType.Creature:
                         Movement.MoveToPosition(player, centerOfObsticle.Y, centerOfObsticle.X, t.TerrainObsticles);
                         // move to position & Fight
-                        //MessageBox.Show(String.Format("You Clicked Object ID={0}", controlClicked.ItemId));
                         break;
                     case ObsticleType.Item:
                         Movement.MoveToPosition(player, centerOfObsticle.Y, centerOfObsticle.X, t.TerrainObsticles);
                         // move to position and Take
-                        MessageBox.Show(String.Format("You Clicked Object ID={0} And You Can take it!",
-                            controlClicked.ItemId));
+                        if (Movement.CanTake)
+                        {
+                            if (player.Inventory.Take(t.TerrainObsticles[controlClicked.ItemId] as Items))
+                            {
+                                t.TerrainObsticles.RemoveAt(controlClicked.ItemId);
+                                this.Controls.Remove(sender as Control);
+                            }
+                        }
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -251,10 +256,10 @@ namespace UserInterface
                 }
             }
             // then we create the inventory form
-            InventoryDisplay inv = new InventoryDisplay();
+            InventoryDisplay inv = new InventoryDisplay(player);
             this.AddOwnedForm(inv);
             // set the position on the screen depending on the MainScreen
-            inv.Location = new Point(MainScreen.ActiveForm.Location.X + 10, ActiveForm.Location.Y + 30);
+            //inv.Location = new Point(MainScreen.ActiveForm.Location.X + 10, ActiveForm.Location.Y + 30);
             // Display the inventory
             inv.ShowDialog();
         }
@@ -298,7 +303,7 @@ namespace UserInterface
                 MessageBox.Show(ex.Message);
             }
         }
-        
+
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -330,26 +335,25 @@ namespace UserInterface
         private void restartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Movement.Stop();
-            DetachEvents();
-            Terrain[] map = new Terrain[]
+            CharacterSelection heroSelection = new CharacterSelection();
+            heroSelection.ShowDialog(this);
+            if (heroSelection.DialogResult == DialogResult.OK)
             {
-                new Terrain(1), 
-                new Terrain(2), 
-                new Terrain(3), 
-                new Terrain(4), 
-                new Terrain(5), 
-                new Terrain(6), 
-                new Terrain(7), 
-                new Terrain(8), 
-                new Terrain(9), 
-            };
-            player.PositionTop = 200;
-            player.PositionLeft = 200;
-            if (player != null)
-            {
+                DetachEvents();
+                Terrain[] map = new Terrain[]
+                {
+                    new Terrain(1), 
+                    new Terrain(2), 
+                    new Terrain(3), 
+                    new Terrain(4), 
+                    new Terrain(5), 
+                    new Terrain(6), 
+                    new Terrain(7), 
+                    new Terrain(8), 
+                    new Terrain(9), 
+                };
                 Game initGame = Game.Instance;
                 initGame.Map = map;
-                initGame.PlayerHero = player;
                 initGame.CurrentTerrain = 5;
                 MainScreen startMainScreen = new MainScreen();
                 startMainScreen.Show();

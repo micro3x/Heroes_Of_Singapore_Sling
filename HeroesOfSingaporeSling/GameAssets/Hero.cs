@@ -235,6 +235,11 @@ namespace GameAssets
             }
         }
 
+        public HeroInventory Inventory
+        {
+            get { return inventory; }
+        }
+
         #endregion
 
         #region Constructors
@@ -248,6 +253,7 @@ namespace GameAssets
             Wisdom = wisdom;
             Agility = agility;
             _baseMaxMana = maxMana;
+            inventory = new HeroInventory();
         }
 
         public static Hero Paladin(string name)
@@ -260,6 +266,8 @@ namespace GameAssets
             paladin.ExploreImage = new Bitmap(Environment.CurrentDirectory + "\\Images\\Hero\\hero.png", true);
             paladin.Width = paladin.ExploreImage.Width;
             paladin.Height = paladin.ExploreImage.Height;
+            paladin.Inventory.Take(WeaponArmor.GetRandomWeaponArmor(60, 43));
+
             return paladin;
         }
 

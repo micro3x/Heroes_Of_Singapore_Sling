@@ -36,7 +36,7 @@
             this.CapHolder = new System.Windows.Forms.Panel();
             this.ShieldHolder = new System.Windows.Forms.Panel();
             this.WeaponHolder = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.BackPack = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // BootsHolder
@@ -107,24 +107,25 @@
             this.WeaponHolder.Size = new System.Drawing.Size(59, 93);
             this.WeaponHolder.TabIndex = 5;
             // 
-            // panel1
+            // BackPack
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Location = new System.Drawing.Point(316, 29);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(265, 285);
-            this.panel1.TabIndex = 6;
+            this.BackPack.AllowDrop = true;
+            this.BackPack.BackColor = System.Drawing.Color.Transparent;
+            this.BackPack.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BackPack.BackgroundImage")));
+            this.BackPack.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.BackPack.Location = new System.Drawing.Point(316, 29);
+            this.BackPack.Name = "BackPack";
+            this.BackPack.Size = new System.Drawing.Size(265, 285);
+            this.BackPack.TabIndex = 6;
             // 
-            // Inventory
+            // InventoryDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(584, 361);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.BackPack);
             this.Controls.Add(this.WeaponHolder);
             this.Controls.Add(this.ShieldHolder);
             this.Controls.Add(this.CapHolder);
@@ -137,9 +138,10 @@
             this.MaximumSize = new System.Drawing.Size(600, 400);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(600, 400);
-            this.Name = "Inventory";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Name = "InventoryDisplay";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Inventory";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InventoryDisplay_FormClosing);
             this.ResumeLayout(false);
 
         }
@@ -153,7 +155,7 @@
         private System.Windows.Forms.Panel CapHolder;
         private System.Windows.Forms.Panel ShieldHolder;
         private System.Windows.Forms.Panel WeaponHolder;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel BackPack;
 
 
     }

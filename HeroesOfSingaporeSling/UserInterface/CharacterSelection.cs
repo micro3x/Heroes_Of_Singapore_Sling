@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GameAssets;
+using GameLogic;
 
 namespace UserInterface
 {
@@ -18,6 +19,7 @@ namespace UserInterface
         public CharacterSelection()
         {
             InitializeComponent();
+            StartGame.DialogResult = DialogResult.OK;
             heroes.Add(Hero.Agent("nonameAgent"));
             heroes.Add(Hero.Paladin("nonamePaladin"));
             HeroesSource.DataSource = heroes;
@@ -25,7 +27,8 @@ namespace UserInterface
 
         private void StartGame_Click(object sender, EventArgs e)
         {
-            (this.Owner as StartMenu).HeroId = HeroesSource.Current as Hero;
+            //(this.Owner as StartMenu).HeroId = HeroesSource.Current as Hero;
+            Game.Instance.PlayerHero = HeroesSource.Current as Hero;
             this.Close();
         }
 

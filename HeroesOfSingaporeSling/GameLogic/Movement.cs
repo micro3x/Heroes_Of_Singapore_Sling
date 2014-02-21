@@ -38,6 +38,14 @@ namespace GameLogic
         private static bool hit;
         private static fight startFight = null;
         private static List<Obsticle> obsticlesList;
+        private static bool canTake;
+
+        public static bool CanTake
+        {
+            get { return canTake; }
+            private set { canTake = value; }
+        }
+
         #endregion
         /// <summary>
         /// Start moving the passed item by calling this method.
@@ -166,6 +174,16 @@ namespace GameLogic
                     // it not only changes the position values in our item
                     // but also triggers an event to let anyone listening that we want to move!
                     itemToMove.ChangePosition(Path[0].Item2, Path[0].Item1);
+                    canTake = false;
+                    Rectangle r = new Rectangle(itemToMove.PositionLeft, itemToMove.PositionTop , itemToMove.ExploreImage.Width, itemToMove.ExploreImage.Height);
+                    foreach (Obsticle obs in obsticlesList)
+                    {
+                        hit = HitCheck(r, obs);
+                        if (obs.ObsticleType == ObsticleType.Item && hit)
+                        {
+                            CanTake = true;
+                        }
+                    }
 
                     int nextScreen = Game.Instance.CurrentTerrain;
                     int newLocationTop = Path[0].Item2 ;
@@ -216,6 +234,7 @@ namespace GameLogic
                 {
                     Stop();
                 }
+                //moveTimer.Start();
             }
             else
             {

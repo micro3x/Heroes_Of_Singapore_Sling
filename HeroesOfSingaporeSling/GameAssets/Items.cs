@@ -10,22 +10,30 @@ namespace GameAssets
 {
     public enum ItemType { WeaponArmor, Magical, AmuletRing}
     [Serializable]
-    public abstract class Items : Obsticle
+    public abstract class Items : Obsticle, ITakeble
     {
         private readonly string name;
         private readonly ItemType typeOfItem;
         private readonly Rectangle inventorySize;
         private readonly Bitmap inventoryImage;
+        private readonly Guid id ;
 
         protected Items(string itemName, ItemType type, Bitmap inventoryBitmap)
         {
             name = itemName;
             typeOfItem = type;
-            if (inventoryBitmap.Height % 30 != 0 || inventoryBitmap.Width % 30 != 0)
+            if (inventoryBitmap.Height % 20 != 0 || inventoryBitmap.Width % 20 != 0)
             {
-                inventorySize = new Rectangle(0,0,(inventoryBitmap.Width/30)*30,(inventoryBitmap.Height/30)*30);
+                inventorySize = new Rectangle(0,0,(inventoryBitmap.Width/20)*20,(inventoryBitmap.Height/20)*20);
             }
-            inventoryImage = inventoryBitmap.Clone(inventorySize,new PixelFormat());
+            inventoryImage = new Bitmap(inventoryBitmap,inventorySize.Size);//  inventoryBitmap.Clone(inventorySize,new PixelFormat());
+            id = Guid.NewGuid();
+        }
+
+
+        public Guid Id
+        {
+            get { return id; }
         }
 
         public Bitmap InventoryImage
