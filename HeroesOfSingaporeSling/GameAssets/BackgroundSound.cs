@@ -44,7 +44,7 @@ namespace GameAssets
 
         public static bool isPlayingMusic = true;
 
-        private static SoundPlayer fonGameMusic = new SoundPlayer(@"..\..\ExternalSound\diablo - 02 - town.wav");
+        private static SoundPlayer fonGameMusic = new SoundPlayer(@"..\..\ExternalSound\backgroundSound.wav");
 
         public static void PlayIngameMusic()
         {
