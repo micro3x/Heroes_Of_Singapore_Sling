@@ -24,6 +24,9 @@ namespace GameAssets
             };
         }
 
-
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

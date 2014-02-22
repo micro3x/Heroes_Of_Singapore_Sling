@@ -22,6 +22,8 @@ namespace GameAssets
             { StaticObsticleType.BorderVertical, Environment.CurrentDirectory +  "\\Images\\StaticObsticle\\Borders\\BorderVertical.png" },
             { StaticObsticleType.BorderHorizontal, Environment.CurrentDirectory +  "\\Images\\StaticObsticle\\Borders\\BorderHorizontal.png" }
         };
+
+        private StaticObsticleType thisStaticObsticleType;
         #region Constructors
         /// <summary>
         /// Each instance is an object on the terrain
@@ -39,7 +41,7 @@ namespace GameAssets
         {
             PositionTop = posTop;
             PositionLeft = posLeft;
-            
+            thisStaticObsticleType = staticObsticleType;
             BuildBackground(StaticObsticleImagePathDict[staticObsticleType]);
         }
         
@@ -56,5 +58,10 @@ namespace GameAssets
         }
 
         #endregion
+
+        public override string ToString()
+        {
+            return this.thisStaticObsticleType.ToString();
+        }
     }
 }

@@ -78,6 +78,19 @@ namespace GameAssets
             return false;
         }
 
+        public void RemoveFromInventory(Guid itemId)
+        {
+            var itemToRemove = containingItems.First(x => x.Id == itemId);
+            if (itemToRemove == null)
+            {
+                return;
+            }
+            ReleeseSpace(CalculateGridSpace(itemToRemove),
+                CalculatePositionToGrid(itemToRemove.PositionTop, itemToRemove.PositionLeft));
+            containingItems.Remove(itemToRemove);
+        }
+
+
         private Tuple<int,int> FindLocation(Items item)
         {
             var space = CalculateGridSpace(item);

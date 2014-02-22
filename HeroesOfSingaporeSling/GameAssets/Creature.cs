@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Media;
 using System.Security.Permissions;
+using System.Text;
 using GameCommon;
 
 namespace GameAssets
@@ -128,6 +129,18 @@ namespace GameAssets
             return RandomGenerator.GetRandom(MinDamage, MaxDamage);
         }
 
-
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(String.Format("Name: {0}", Name));
+            sb.AppendLine();
+            sb.AppendLine("Type: Hostile");
+            sb.AppendLine();
+            sb.AppendLine(String.Format("Health Points: {0}", MaxHealt));
+            sb.AppendLine(String.Format("Damage: {0}-{1}", MinDamage, MaxDamage));
+            sb.AppendLine(String.Format("Deffence: {0}%", Defence));
+            sb.AppendLine(String.Format("Speed: {0}", Speed));
+            return sb.ToString();
+        }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameAssets
 {
-    interface IWearable
+    public interface IWearable
     {
         bool CanWear(Hero hero);
         Bitmap WearImage { get; }

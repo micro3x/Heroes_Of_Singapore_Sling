@@ -28,7 +28,7 @@ namespace GameAssets
 
         private HeroInventory inventory;
 
-        private List<KeyValuePair<WearLocation, IWearable>> WearingItems;
+        private Dictionary<OnCharacterLocation, IWearable> wearingItems = new Dictionary<OnCharacterLocation, IWearable>();
 
         private List<HeroSpell> availableHeroSpells;
 
@@ -125,7 +125,15 @@ namespace GameAssets
 
         public int Agility
         {
-            get { return _agility; }
+            get
+            {
+                int currentAgility = _agility;
+                foreach (var item in WearingItems)
+                {
+                    currentAgility += item.Value.BonusToAgility;
+                }
+                return currentAgility;
+            }
             set
             {
                 if (value < 0)
@@ -138,7 +146,15 @@ namespace GameAssets
 
         public int Vitality
         {
-            get { return _vitality; }
+            get
+            {
+                int currentVitality  = _vitality;
+                foreach (var item in WearingItems)
+                {
+                    currentVitality += item.Value.BonusToVitality;
+                }
+                return currentVitality;
+            }
             set
             {
                 if (value < 0)
@@ -151,7 +167,16 @@ namespace GameAssets
 
         public int Wisdom
         {
-            get { return _wisdom; }
+            get
+            {
+                int currentWisdom = _wisdom;
+                foreach (var item in WearingItems)
+                {
+                    currentWisdom += item.Value.BonusToWisdom;
+                }
+                return currentWisdom;
+                
+            }
             set
             {
                 if (value < 0)
@@ -164,7 +189,15 @@ namespace GameAssets
 
         public int Strenght
         {
-            get { return _strenght; }
+            get
+            {
+                int currentStrenght = _strenght;
+                foreach (var item in WearingItems)
+                {
+                    currentStrenght += item.Value.BonusToStrenght;
+                }
+                return currentStrenght;
+            }
             set
             {
                 if (value < 0)
@@ -193,11 +226,10 @@ namespace GameAssets
             {
                 int currentDeffence = base.Defence;
                 currentDeffence += Strenght*1;
-                //foreach (var Item in WearingItems)
-                //{
-                //    currentDeffence += Item.BonusDefence;
-                //}
-
+                foreach (var Item in WearingItems)
+                {
+                    currentDeffence += Item.Value.BonusToDefence;
+                }
                 return currentDeffence;
             }
         }
@@ -213,10 +245,10 @@ namespace GameAssets
             {
                 int currentDemage = base.MinDamage;
                 currentDemage += Strenght*1;
-                //foreach (var Item in WearingItems)
-                //{
-                //    currentDeffence += Item.BonusMinAtack;
-                //}
+                foreach (var Item in WearingItems)
+                {
+                    currentDemage += Item.Value.BonusToDamage;
+                }
                 return currentDemage;
             }
         }
@@ -227,10 +259,10 @@ namespace GameAssets
             {
                 int currentDemage = base.MaxDamage;
                 currentDemage += Strenght * 1;
-                //foreach (var Item in WearingItems)
-                //{
-                //    currentDeffence += Item.BonusMaxAtack;
-                //}
+                foreach (var Item in WearingItems)
+                {
+                    currentDemage += Item.Value.BonusToDamage;
+                }
                 return currentDemage;
             }
         }
@@ -238,6 +270,14 @@ namespace GameAssets
         public HeroInventory Inventory
         {
             get { return inventory; }
+        }
+
+        public Dictionary<OnCharacterLocation, IWearable> WearingItems
+        {
+            get
+            {
+                return wearingItems;
+            }
         }
 
         #endregion
@@ -305,6 +345,36 @@ namespace GameAssets
         {
             return base.ToString();
         }
+        public bool WearItem(Guid itemId)
+        {
+            var item = inventory.ContainingItems.First(x => x.Id == itemId) as IWearable;
+            if (item != null)
+            {
+                if (WearingItems.ContainsKey(item.WearLocation))
+                {
+                    return false;
+                }
+                WearingItems.Add(item.WearLocation,item);
+                inventory.RemoveFromInventory(itemId);
+            }
+            return false;
+        }
+
+        public bool UnWearItem(Guid itemID)
+        {
+            var keysWithMatchingValues = wearingItems.Where(p =>
+            {
+                var items = p.Value as Items;
+                return items != null && items.Id == itemID;
+            }).Select(p => p.Key);
+            if (keysWithMatchingValues.Any())
+            {
+                wearingItems.Remove(keysWithMatchingValues.FirstOrDefault());
+                return true;
+            }
+            return false;
+        }
+
         #endregion
     }
 }
