@@ -20,8 +20,10 @@ namespace UserInterface
         {
             InitializeComponent();
             StartGame.DialogResult = DialogResult.OK;
-            heroes.Add(Hero.Agent("nonameAgent"));
-            heroes.Add(Hero.Paladin("nonamePaladin"));
+            heroes.Add(Hero.Agent("Agent"));
+            heroes.Add(Hero.Paladin("Paladin"));
+            heroes.Add(Hero.Archer("Archer"));
+            heroes.Add(Hero.Mage("Mage"));
             HeroesSource.DataSource = heroes;
         }
 

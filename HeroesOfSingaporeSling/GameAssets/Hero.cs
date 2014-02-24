@@ -303,7 +303,7 @@ namespace GameAssets
             paladin.ObsticleType = ObsticleType.Creature;
             paladin.PositionTop = 200;
             paladin.PositionLeft = 200;
-            paladin.ExploreImage = new Bitmap(Environment.CurrentDirectory + "\\Images\\Hero\\hero.png", true);
+            paladin.ExploreImage = new Bitmap(Environment.CurrentDirectory + "\\Images\\Hero\\paladinHero.png", true);
             paladin.Width = paladin.ExploreImage.Width;
             paladin.Height = paladin.ExploreImage.Height;
             paladin.Inventory.Take(WeaponArmor.GetRandomWeaponArmor(60, 43));
@@ -318,10 +318,36 @@ namespace GameAssets
             paladin.ObsticleType = ObsticleType.Creature;
             paladin.PositionTop = 200;
             paladin.PositionLeft = 200;
-            paladin.ExploreImage = new Bitmap(Environment.CurrentDirectory + "\\Images\\Hero\\paladinHero.png", true);
+            paladin.ExploreImage = new Bitmap(Environment.CurrentDirectory + "\\Images\\Hero\\hero.png", true);
             paladin.Width = paladin.ExploreImage.Width;
             paladin.Height = paladin.ExploreImage.Height;
             return paladin;
+        }
+
+        public static Hero Archer(string name)
+        {
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("You must provide a name for your Hero");
+            Hero archer = new Hero(name, 90, 30, 5, 3, 5, 4, 3, 6, 3, 10);
+            archer.ObsticleType = ObsticleType.Creature;
+            archer.PositionTop = 200;
+            archer.PositionLeft = 200;
+            archer.ExploreImage = new Bitmap(Environment.CurrentDirectory + "\\Images\\Hero\\archerHero.png", true);
+            archer.Width = archer.ExploreImage.Width;
+            archer.Height = archer.ExploreImage.Height;
+            return archer;
+        }
+
+        public static Hero Mage(string name)
+        {
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("You must provide a name for your Hero");
+            Hero mage = new Hero(name, 80, 35, 5, 4, 5, 3, 4, 7, 4, 10);
+            mage.ObsticleType = ObsticleType.Creature;
+            mage.PositionTop = 200;
+            mage.PositionLeft = 200;
+            mage.ExploreImage = new Bitmap(Environment.CurrentDirectory + "\\Images\\Hero\\mageHero.png", true);
+            mage.Width = mage.ExploreImage.Width;
+            mage.Height = mage.ExploreImage.Height;
+            return mage;
         }
         #endregion
 

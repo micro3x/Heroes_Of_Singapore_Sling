@@ -143,7 +143,6 @@
             this.Text = "Inventory";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InventoryDisplay_FormClosing);
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -156,7 +155,5 @@
         private System.Windows.Forms.Panel ShieldHolder;
         private System.Windows.Forms.Panel WeaponHolder;
         private System.Windows.Forms.Panel BackPack;
-
-
     }
 }
