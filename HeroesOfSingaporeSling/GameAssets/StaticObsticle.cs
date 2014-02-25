@@ -8,6 +8,7 @@ public enum StaticObsticleType
     Tree, Rock, Fence, BorderVertical, BorderHorizontal
 }
 
+
 namespace GameAssets
 {
     [Serializable]

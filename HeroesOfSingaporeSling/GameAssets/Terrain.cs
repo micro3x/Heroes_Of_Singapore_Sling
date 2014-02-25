@@ -114,6 +114,7 @@ namespace GameAssets
                             .ToArray();
                     // here we create and put the obsticle in the list
                     terrainObsticles.Add(Enemy.Zombie(thisObsticle[0],thisObsticle[1]));
+                    //terrainObsticles.Add(Enemy.Monster(thisObsticle[0], thisObsticle[1]));
                     current = sr.ReadLine();
                 }
             }

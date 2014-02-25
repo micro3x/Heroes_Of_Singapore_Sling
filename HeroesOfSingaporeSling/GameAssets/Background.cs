@@ -33,6 +33,7 @@ namespace GameAssets
         public Background(BackgroundType backgroundType)
         {
             BuildBackground(Environment.CurrentDirectory + BackgroundImagePathDict[backgroundType]);
+            BackgroundMusic.PlayIngameMusic();
         }
         #endregion
 
@@ -43,7 +44,7 @@ namespace GameAssets
         /// </summary>
         private void BuildBackground(string fileLocation)
         {
-            BackgroundMusic.PlayIngameMusic();
+            //BackgroundMusic.PlayIngameMusic();
             Image image = Image.FromFile(fileLocation);
             Height = image.Height;
             Width = image.Width;

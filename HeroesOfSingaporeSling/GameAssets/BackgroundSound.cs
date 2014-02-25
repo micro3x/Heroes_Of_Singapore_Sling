@@ -48,7 +48,7 @@ namespace GameAssets
 
         public static void PlayIngameMusic()
         {
-            //C:\Windows\System32\wmp.dll
+            fonGameMusic.PlayLooping();
         }
         public static void StopfonGameMusic()
         {

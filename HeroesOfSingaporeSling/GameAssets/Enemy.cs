@@ -28,9 +28,9 @@ namespace GameAssets
         {
             return new Enemy("newMon11", 100, 4, 2, 4, 7)
             {
-                ExploreImage = new Bitmap(Environment.CurrentDirectory + "\\Images\\Enemies\\newMon11.png"),
-                Width = 50,
-                Height = 97,
+                ExploreImage = new Bitmap(Environment.CurrentDirectory + "\\Images\\Enemies\\newMon3.png"),
+                Width = 79,
+                Height = 79,
                 PositionTop = top,
                 PositionLeft = left,
                 ObsticleType = ObsticleType.Creature
