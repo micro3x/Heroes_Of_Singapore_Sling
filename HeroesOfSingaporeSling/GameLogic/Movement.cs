@@ -33,7 +33,7 @@ namespace GameLogic
         static Timer moveTimer;
         private static int _targettop;
         private static int _targetleft;
-        private static IMoveble itemToMove;
+        private static IMovable itemToMove;
         private static List<Tuple<int, int>> Path;
         private static bool hit;
         private static fight startFight = null;
@@ -55,7 +55,7 @@ namespace GameLogic
         /// <param name="targetTop"> Final destination Y </param>
         /// <param name="targetLeft"> Final destination X </param>
         /// <param name="obsList"> List of obsticles on the terrain </param>
-        public static void MoveToPosition(IMoveble item, int targetTop, int targetLeft, List<Obsticle> obsList)
+        public static void MoveToPosition(IMovable item, int targetTop, int targetLeft, List<Obsticle> obsList)
         {
             // set global vars
             hit = false;

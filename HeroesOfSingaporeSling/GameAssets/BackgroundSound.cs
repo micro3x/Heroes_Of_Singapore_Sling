@@ -42,9 +42,9 @@ namespace GameAssets
         #endregion
 
 
-        public static bool isPlayingMusic = true;
+        public static bool IsPlayingMusic = true;
 
-        private static SoundPlayer fonGameMusic = new SoundPlayer(@"..\..\ExternalSound\backgroundSound.wav");
+        private readonly static SoundPlayer fonGameMusic = new SoundPlayer(@"..\..\ExternalSound\backgroundSound.wav");
 
         public static void PlayIngameMusic()
         {
@@ -57,7 +57,7 @@ namespace GameAssets
         public static void PausefonGameMusic()
         {
             fonGameMusic.Stop();
-            isPlayingMusic = false;
+            IsPlayingMusic = false;
         }
 
         // Fight Sounds Effects:

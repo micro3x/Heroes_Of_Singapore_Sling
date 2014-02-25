@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace GameAssets
 {
     [Serializable]
-    public class Hero : Creature, IMoveble
+    public class Hero : Creature, IMovable
     {
         #region Vars
         private int _experiance;

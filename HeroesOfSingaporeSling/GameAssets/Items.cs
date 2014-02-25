@@ -10,7 +10,7 @@ namespace GameAssets
 {
     public enum ItemType { WeaponArmor, Magical, AmuletRing}
     [Serializable]
-    public abstract class Items : Obsticle, ITakeble
+    public abstract class Items : Obsticle, IPickable
     {
         private readonly string name;
         private readonly ItemType typeOfItem;

@@ -11,7 +11,7 @@ namespace GameAssets
     public enum MagicType { Fireball, Iceball}
 
     [Serializable]
-    abstract class Magic : Obsticle, ITakeble
+    abstract class Magic : Obsticle, IPickable
     {
         private readonly string name;
         private readonly MagicType typeOfMagic;

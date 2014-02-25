@@ -49,10 +49,10 @@
     <Compile Include="Hero.cs" />
     <Compile Include="HeroInventory.cs" />
     <Compile Include="HeroSpell.cs" />
-    <Compile Include="IMoveble.cs" />
-    <Compile Include="IObsticle.cs" />
-    <Compile Include="ITakeble.cs" />
-    <Compile Include="IWearable.cs" />
+    <Compile Include="Interfaces\IMovable.cs" />
+    <Compile Include="Interfaces\IDrawable.cs" />
+    <Compile Include="Interfaces\IPickable.cs" />
+    <Compile Include="Interfaces\IWearable.cs" />
     <Compile Include="Magic.cs" />
     <Compile Include="Obsticle.cs" />
     <Compile Include="Items.cs" />
