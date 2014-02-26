@@ -30,7 +30,7 @@ namespace UserInterface
             
             t = playGame.Map[playGame.CurrentTerrain - 1];
             player = playGame.PlayerHero;
-            InitializeComponent();
+            InitializeComponent();            
             BackgroundImage = t.Background;
             BackgroundImageLayout = ImageLayout.Tile;
             AddObsticles(t.TerrainObsticles);

@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BattleGround.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BattleGround.Designer.cs">
+      <DependentUpon>BattleGround.cs</DependentUpon>
+    </Compile>
     <Compile Include="CharacterSelection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     <Compile Include="UserControls\ObsticleDisplayBox.Designer.cs">
       <DependentUpon>ObsticleDisplayBox.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BattleGround.resx">
+      <DependentUpon>BattleGround.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CharacterSelection.resx">
       <DependentUpon>CharacterSelection.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,6 +143,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MenuBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\BattleGround.jpg" />
+    <None Include="Resources\BattleGround1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
