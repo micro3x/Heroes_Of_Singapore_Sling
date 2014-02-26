@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using GameAssets.Obsticles;
 
 namespace GameAssets
 {
@@ -14,7 +15,7 @@ namespace GameAssets
     public class Hero : Creature, IMovable
     {
         #region Vars
-        private string _heroClassName;
+        private string heroHeroClassName;
 
         private int _experience;
         private int _nextLevelAtExp;
@@ -32,22 +33,15 @@ namespace GameAssets
 
         private HeroInventory inventory;
 
-        private Dictionary<OnCharacterLocation, IWearable> wearingItems = new Dictionary<OnCharacterLocation, IWearable>();
+        private readonly Dictionary<OnCharacterLocation, IWearable> wearingItems = new Dictionary<OnCharacterLocation, IWearable>();
 
         private List<HeroSpell> availableHeroSpells;
 
-
-        public string HeroClassName
-        {
-            get
-            {
-                return this._heroClassName;
-            }
-            set
-            {
-                this._heroClassName = value;
-            }
-        }
+        // tova kakvo e?
+        // kakuv mu e smisula?
+        // koi go setva?
+        // zashto e pri provenlivite a puk e propartie?
+        
 
         public event EventHandler<MoveEventArgs> Move;
 
@@ -68,6 +62,18 @@ namespace GameAssets
         #endregion
 
         #region Proparties
+        public string HeroHeroClassName
+        {
+            get
+            {
+                return this.heroHeroClassName;
+            }
+            private set
+            {
+                this.heroHeroClassName = value;
+            }
+        }
+
         public int GainedExperiance
         {
             get { return _experience; }
@@ -95,7 +101,7 @@ namespace GameAssets
             {
                 if (_nextLevelAtExp >= value)
                 {
-                    throw new ArgumentOutOfRangeException("Next LevelUp must require more experiance then the current One");
+                    throw new HeroPropartieOutOfRange("Next LevelUp must require more experiance then the current One");
                 }
                 _nextLevelAtExp = value;
             }
@@ -300,7 +306,7 @@ namespace GameAssets
 
         #region Constructors
         private Hero(string name, int maxHealt, int defence, int speed, int minDamage,
-            int maxDamage, int strenght, int vitality, int wisdom, int agility,int maxMana)
+            int maxDamage, int strenght, int vitality, int wisdom, int agility,int maxMana, string heroClassName = "")
             : base(name,maxHealt,defence,speed,minDamage,maxDamage)
         {
             NextLevelAt = 100;
@@ -310,12 +316,13 @@ namespace GameAssets
             Agility = agility;
             _baseMaxMana = maxMana;
             inventory = new HeroInventory();
+            HeroHeroClassName = heroClassName;
         }
 
         public static Hero Paladin(string name)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("You must provide a name for your Hero");
-            Hero paladin = new Hero(name,100,25,2,5,15,5,5,1,2,10);
+            Hero paladin = new Hero(name,100,25,2,5,15,5,5,1,2,10,"Pladin");
             paladin.ObsticleType = ObsticleType.Creature;
             paladin.PositionTop = 200;
             paladin.PositionLeft = 200;
@@ -330,7 +337,7 @@ namespace GameAssets
         public static Hero Agent(string name)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("You must provide a name for your Hero");
-            Hero paladin = new Hero(name, 80, 20, 5, 1, 5, 2, 2, 5, 3, 10);
+            Hero paladin = new Hero(name, 80, 20, 5, 1, 5, 2, 2, 5, 3, 10, "Agent");
             paladin.ObsticleType = ObsticleType.Creature;
             paladin.PositionTop = 200;
             paladin.PositionLeft = 200;
@@ -343,7 +350,7 @@ namespace GameAssets
         public static Hero Archer(string name)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("You must provide a name for your Hero");
-            Hero archer = new Hero(name, 90, 30, 5, 3, 5, 4, 3, 6, 3, 10);
+            Hero archer = new Hero(name, 90, 30, 5, 3, 5, 4, 3, 6, 3, 10, "Archer");
             archer.ObsticleType = ObsticleType.Creature;
             archer.PositionTop = 200;
             archer.PositionLeft = 200;
@@ -356,7 +363,7 @@ namespace GameAssets
         public static Hero Mage(string name)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("You must provide a name for your Hero");
-            Hero mage = new Hero(name, 80, 35, 5, 4, 5, 3, 4, 7, 4, 10);
+            Hero mage = new Hero(name, 80, 35, 5, 4, 5, 3, 4, 7, 4, 10, "Mage");
             mage.ObsticleType = ObsticleType.Creature;
             mage.PositionTop = 200;
             mage.PositionLeft = 200;

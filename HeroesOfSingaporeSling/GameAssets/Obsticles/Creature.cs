@@ -31,32 +31,33 @@ namespace GameAssets
             Speed = speed;
             MinDamage = minDamage;
             MaxDamage = maxDamage;
+
         }
 
-        public int DefenceRating
+        // promqna bez setter
+        // v get trqbva da se izchislqva
+        // virtualen zaradi geroq
+        public virtual int DefenceRating
         {
             get
             {
                 return this._defenceRating;
             }
-            set
-            {
-                this._defenceRating = value;
-            }
+            protected set { _defenceRating = value; }
         }
 
-        public int AttackRating
+        // promqna bez setter
+        // v get trqbva da se izchislqva
+        // virtualen zaradi geroq
+        public virtual int AttackRating
         {
             get
             {
                 return this._attackRating;
             }
-            set
-            {
-                this._attackRating = value;
-            }
+            protected set { _attackRating = value; }
         }
-
+        // nikoi ne go instancira sledovatekno vinagi shte e 0
         public int AttackSpeed
         {
             get
@@ -97,7 +98,8 @@ namespace GameAssets
             {
                 if (value < 1)
                 {
-                    throw new ArgumentOutOfRangeException("MaxHealt must be greater then 1");
+                    // kude e moq exception class?
+                    throw new HeroPropartieOutOfRange("MaxHealt must be greater then 1");
                 }
                 _maxHealt = value;
             }
@@ -110,11 +112,11 @@ namespace GameAssets
             {
                 if (value >= 0 && value <= 100)
                 {
-                    _defence = value;    
+                    _defence = value;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("Defence is a percent value and must be between 0 and 100");
+                    throw new HeroPropartieOutOfRange("Defence is a percent value and must be between 0 and 100");
                 }
             }
         }
@@ -126,7 +128,7 @@ namespace GameAssets
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("The value of speed cannot be a negative");
+                    throw new HeroPropartieOutOfRange("The value of speed cannot be a negative");
                 }
                 _speed = value;
             }
@@ -139,7 +141,7 @@ namespace GameAssets
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("Minimum damage cannot be negative");
+                    throw new HeroPropartieOutOfRange("Minimum damage cannot be negative");
                 }
                 _minDamage = value;
             }
@@ -152,7 +154,7 @@ namespace GameAssets
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("Minimum damage cannot be negative");    
+                    throw new HeroPropartieOutOfRange("Minimum damage cannot be negative");
                 }
                 _maxDamage = value;
             }
@@ -163,18 +165,5 @@ namespace GameAssets
             return RandomGenerator.GetRandom(MinDamage, MaxDamage);
         }
 
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine(String.Format("Name: {0}", Name));
-            sb.AppendLine();
-            sb.AppendLine("Type: Hostile");
-            sb.AppendLine();
-            sb.AppendLine(String.Format("Health Points: {0}", MaxHealt));
-            sb.AppendLine(String.Format("Damage: {0}-{1}", MinDamage, MaxDamage));
-            sb.AppendLine(String.Format("Deffence: {0}%", Defence));
-            sb.AppendLine(String.Format("Speed: {0}", Speed));
-            return sb.ToString();
-        }
     }
 }

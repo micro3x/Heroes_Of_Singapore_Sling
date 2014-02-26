@@ -61,7 +61,7 @@ namespace GameLogic
             CalculatePath();
             // set the timer
             moveTimer = new Timer(15);
-            moveTimer.Elapsed += new ElapsedEventHandler(TimerTick);
+            moveTimer.Elapsed += TimerTick;
             // Go Baby Go
             moveTimer.Start();
         }
@@ -222,7 +222,7 @@ namespace GameLogic
                     // we did this step so we can remove it from the path.
                     Path.RemoveAt(0);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Stop();
                 }

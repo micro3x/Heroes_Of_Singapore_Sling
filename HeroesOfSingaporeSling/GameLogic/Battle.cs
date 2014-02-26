@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Timers;
 using GameAssets;
 
 
 namespace GameLogic
 {
-    public static class Battle
+    public class Battle
     {
         public static event EventHandler<BattleEventArgs> BattleStart;
 
@@ -16,13 +17,43 @@ namespace GameLogic
             if (handler != null) handler(null, e);
         }
 
-        public static void AutoBattle(Hero hero, Enemy enemy)//TODO implement
+        public static event EventHandler<EventArgs> BattleEnded;
+
+        private static void OnBattleEnded()
         {
-            double heroAttackSpeedCoef = hero.AttackSpeed / enemy.AttackSpeed;//TODO make the ratings in Hero and Enemy
+            EventHandler<EventArgs> handler = BattleEnded;
+            if (handler != null) handler(null, EventArgs.Empty);
+        }
+
+        //private Timer hitTimer = new Timer(1000);
+
+        //private void initTimer()
+        //{
+        //    hitTimer.Elapsed += HitTimerOnElapsed;
+        //}
+
+        //private void HitTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        //{
+        //    // ti udari 
+        //}
+
+
+        // 1. zashto tova e staticen method?
+        // 2. ako e taka ... trqbva da hvurlq statichni eventi za koito geroqt trqbva da e zakachen ?!?!
+        // 3. zashto karash da ti se podava Hero i Enemy pri polojenie che i dvete sa Creature i ti ne izpolzvash
+        // nikude neshto specifichno za Hero?
+        public static void AutoBattle(Creature hero, Creature enemy)//TODO implement
+        {
+            // tuka delish 2 celochisleni stoinosti bez cast i ochakvash da poluchish double ???
+            double heroAttackSpeedCoef = hero.AttackSpeed / (double) enemy.AttackSpeed ;//TODO make the ratings in Hero and Enemy
             double enemyAttackSpeedCoef = 1 / heroAttackSpeedCoef;
 
-            double heroAttackRatingCoef = (hero.AttackRating - enemy.DefenceRating)/100; //TODO make the funkcion with log
-            double enemyAttackRatingCoef = (enemy.AttackRating - hero.DefenceRating)/100;
+            // tuka delish 2 celochisleni stoinosti bez cast i ochakvash da poluchish double ???
+            double heroAttackRatingCoef = (hero.AttackRating - enemy.DefenceRating)/100D; //TODO make the funkcion with log
+            // tuka delish 2 celochisleni stoinosti bez cast i ochakvash da poluchish double ???
+            double enemyAttackRatingCoef = (enemy.AttackRating - hero.DefenceRating)/100D;
+            
+
 
             if (heroAttackRatingCoef > 80)//TODO remove this when log function is ready
             {
@@ -43,23 +74,36 @@ namespace GameLogic
 
             while (hero.Healt > 0 && enemy.Healt > 0)
             {
+                // Geroq udrq - drugiq umira!
                 if (RandomGenerator.GetRandom(0 , 100) > (100 - heroAttackRatingCoef))//if AttRating is 60 you have 60% chance to hit
                 {
                     enemy.Healt = enemy.Healt - (hero.MakeDamage() * (int)heroAttackSpeedCoef);//Hero hits Enemy
                 }
+                // Drugiq udrq vupreki che e umrql :) -  geroq Umira!
                 if (RandomGenerator.GetRandom(0, 100) > (100 - enemyAttackRatingCoef))
                 {
                     hero.Healt = hero.Healt - (enemy.MakeDamage() * (int)enemyAttackSpeedCoef);//Enemy hits Hero
                 }
                 
+                // koi pecheli ako i dvamata sa umrqli????
+                // proverkata e purvo na geroq znachi gubi bitkata ot umrqla gadina!
+
+
                 //hero and enemy use magic?
 
                 if (hero.Healt <= hero.MaxHealt/2)//or a logic that says poitonHealing >= maxhealt - healt
                 {
-                    //TODO auto heal with poiton or magic?
+                    MagicItem potion = (hero as Hero).Inventory.ContainingItems.FirstOrDefault(
+                        x => x.TypeOfItem == ItemType.Magical && x.Name == "HP_Potion") as MagicItem;
+                    if (potion != null)
+                    {
+                        potion.UseItem(hero);
+                    }
+
                 }
                 if (hero.Healt <= 0)
                 {
+                    OnBattleEnded();
                     break;
                     //TODO throw ne die event? game over menu or respawn?
                 }
@@ -69,6 +113,9 @@ namespace GameLogic
                     //TODO enemy die event, remove enemy from map and get bonuses
                 }
             }
+
+
         }
+
     }
 }

@@ -10,11 +10,14 @@ namespace GameAssets
     /// </summary>
     public interface IDrawable
     {
-        int Width { get; set; }
-        int Height { get; set; }
-        Bitmap ImageBitmap { get; set; }
-        int PositionTop { get; set; }
-        int PositionLeft { get; set; }
+        Bitmap ExploreImage { get; set; }
+
+        // teq ne ni trqbvat
+        //int Width { get; set; }
+        //int Height { get; set; }
+        
+        //int PositionTop { get; set; }
+        //int PositionLeft { get; set; }
 
     }
 }

@@ -14,43 +14,32 @@ namespace GameAssets
     /// Used to get the background for the MainScreen
     /// </summary>
     [Serializable]
-    public class Background : Obsticle
+    public class Background : IDrawable
     {
+        // tova ne ni trqbva kato obsticle a IDrawable!
+        private Bitmap bkground;
+
+
         public static Dictionary<BackgroundType, string> BackgroundImagePathDict =
             new Dictionary<BackgroundType, string>()
         {
             { BackgroundType.Grass, "\\Images\\Backgrounds\\grass-background.jpg" },
-            
         };
         #region Proparties
-        public Bitmap BackgroundImage
+        public Bitmap ExploreImage
         {
-            get { return ExploreImage; }
+            get { return bkground; }
+            set { bkground = value; }
         }
         #endregion
 
         #region Constructors
         public Background(BackgroundType backgroundType)
         {
-            BuildBackground(Environment.CurrentDirectory + BackgroundImagePathDict[backgroundType]);
+            ExploreImage = new Bitmap(Environment.CurrentDirectory + BackgroundImagePathDict[backgroundType]);
             BackgroundMusic.PlayIngameMusic();
         }
         #endregion
 
-        #region Methods
-
-        /// <summary>
-        /// Sets the image propartie
-        /// </summary>
-        private void BuildBackground(string fileLocation)
-        {
-            //BackgroundMusic.PlayIngameMusic();
-            Image image = Image.FromFile(fileLocation);
-            Height = image.Height;
-            Width = image.Width;
-            ExploreImage = new Bitmap(Height, Width);
-            Graphics.FromImage(ExploreImage).DrawImage(image, new Point(0, 0));
-        }
-        #endregion
     }
 }

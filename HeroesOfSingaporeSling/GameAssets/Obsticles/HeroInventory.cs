@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GameAssets
+namespace GameAssets.Obsticles
 {
+
+    // Tova Cqloto zashto e v Obsticle ?
+
     [Serializable]
     public class HeroInventory
     {

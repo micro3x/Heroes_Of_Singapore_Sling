@@ -43,17 +43,20 @@
   <ItemGroup>
     <Compile Include="Background\Background.cs" />
     <Compile Include="Background\BackgroundSound.cs" />
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="GeneralSpell.cs" />
+    <Compile Include="Magic.cs" />
     <Compile Include="Obsticles\Creature.cs" />
     <Compile Include="Obsticles\Enemy.cs" />
     <Compile Include="Events\Events.cs" />
     <Compile Include="Obsticles\Hero.cs" />
     <Compile Include="Obsticles\HeroInventory.cs" />
-    <Compile Include="Obsticles\HeroSpell.cs" />
+    <Compile Include="HeroSpell.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Interfaces\IPickable.cs" />
     <Compile Include="Interfaces\IWearable.cs" />
-    <Compile Include="Obsticles\Magic.cs" />
+    <Compile Include="Obsticles\MagicItem.cs" />
     <Compile Include="Obsticles\Obsticle.cs" />
     <Compile Include="Obsticles\Items.cs" />
     <Compile Include="Functions\RandomGenerator.cs" />
@@ -62,6 +65,9 @@
     <Compile Include="Terrain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Obsticles\WeaponArmor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

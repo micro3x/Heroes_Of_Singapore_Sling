@@ -11,7 +11,7 @@ namespace GameAssets
         private readonly string name;
         private readonly ItemType typeOfItem;
         private readonly Rectangle inventorySize;
-        private readonly Bitmap inventoryImage;
+        private Bitmap inventoryImage;
         private readonly Guid id ;
 
         protected Items(string itemName, ItemType type, Bitmap inventoryBitmap)
@@ -22,7 +22,11 @@ namespace GameAssets
             {
                 inventorySize = new Rectangle(0,0,(inventoryBitmap.Width/20)*20,(inventoryBitmap.Height/20)*20);
             }
-            inventoryImage = new Bitmap(inventoryBitmap,inventorySize.Size);//  inventoryBitmap.Clone(inventorySize,new PixelFormat());
+            if (inventorySize.Size != new Size(0, 0))
+            {
+                inventoryImage = new Bitmap(inventoryBitmap, inventorySize.Size);
+                    //  inventoryBitmap.Clone(inventorySize,new PixelFormat());
+            }
             id = Guid.NewGuid();
         }
 
@@ -35,6 +39,7 @@ namespace GameAssets
         public Bitmap InventoryImage
         {
             get { return inventoryImage; }
+            protected set { inventoryImage = value; }
         }
 
         public ItemType TypeOfItem

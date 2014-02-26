@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
@@ -92,6 +93,7 @@ namespace UserInterface
             player.Move -= MoveHero;
             Battle.BattleStart -= this.BattleStartNew;
             Movement.ChangeTerrain -= ChangeScreen;
+            
         }
 
         private void AttachEvents()
@@ -100,6 +102,7 @@ namespace UserInterface
             Battle.BattleStart += this.BattleStartNew;
             Movement.ChangeTerrain += ChangeScreen;
         }
+
 
 
         #endregion

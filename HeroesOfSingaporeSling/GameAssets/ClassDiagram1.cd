@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GameAssets.Background" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAA=</HashCode>
+      <FileName>Background\Background.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameAssets.BackgroundMusic" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQCgAAAAQEQBACAANAUCIAAEAAISQEAABQAAAAIABA=</HashCode>
+      <FileName>Background\BackgroundSound.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.LevelUpEventArgs" Collapsed="true">
+    <Position X="5.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\Events.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.MoveEventArgs" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Events\Events.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.ObsticleHitEventArgs" Collapsed="true">
+    <Position X="6.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABACAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Events\Events.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.BattleEventArgs" Collapsed="true">
+    <Position X="5.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Events\Events.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.ChangeScreenEventArgs" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Events\Events.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.RandomGenerator" Collapsed="true">
+    <Position X="5.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Functions\RandomGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.SortByTopPosition" Collapsed="true">
+    <Position X="5.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Functions\SortByTopPosition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.Magic" Collapsed="true">
+    <Position X="11.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Magic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.Creature" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAKAAAgAAACAAAAAAAgAQBQAACCEIgBRAAAiAAAJA=</HashCode>
+      <FileName>Obsticles\Creature.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.Enemy" Collapsed="true">
+    <Position X="7.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAEAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Obsticles\Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.Hero" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAJIwAoIAIKAInAAEAAIAFBAYCAAQ3gAAAKgIgIKA=</HashCode>
+      <FileName>Obsticles\Hero.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameAssets.Obsticles.HeroInventory" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAIAAAAAAAgIgAAAAEAAAgAQAAEAEAQAAAA=</HashCode>
+      <FileName>Obsticles\HeroInventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.HeroSpell" Collapsed="true">
+    <Position X="11.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HeroSpell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.Items" Collapsed="true">
+    <Position X="11" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAACAAAAAAAAAAAAQAAAAEIAAAAAAAIAAAAgQ=</HashCode>
+      <FileName>Obsticles\Items.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameAssets.MagicItem" Collapsed="true">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAEIAAAAAAAAAAgAAAABAAAAAAAAEA=</HashCode>
+      <FileName>Obsticles\MagicItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.Obsticle" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAEAAAABAAQAAAAAAAAAEAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Obsticles\Obsticle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameAssets.StaticObsticle" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAABAAIAA=</HashCode>
+      <FileName>Obsticles\StaticObsticle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameAssets.WeaponArmor" Collapsed="true">
+    <Position X="12.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAYAEAAkAAEgBAAAAAAAAEECCCIAAKACAAAAIA=</HashCode>
+      <FileName>Obsticles\WeaponArmor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GameAssets.Terrain" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EgAEEAAAAAIAAAAAAAAAAAAQAAAACAAAAAggAAAAAAA=</HashCode>
+      <FileName>Terrain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="GameAssets.IDrawable" Collapsed="true">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IDrawable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GameAssets.IMovable" Collapsed="true">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAIAAAIAQAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMovable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GameAssets.IPickable" Collapsed="true">
+    <Position X="12" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IPickable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GameAssets.IWearable" Collapsed="true">
+    <Position X="13.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAYAAAAAAAAgBAAAAAAAAEECCCIAACACAAAAIA=</HashCode>
+      <FileName>Interfaces\IWearable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="GameAssets.BackgroundType" Collapsed="true">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAABAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Background\Background.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GameAssets.HeroType" Collapsed="true">
+    <Position X="4" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAACAABAAAAAAAAAAEAAAAAAIAAAA=</HashCode>
+      <FileName>Obsticles\Hero.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GameAssets.ItemType" Collapsed="true">
+    <Position X="5.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAIABAAAAAAA=</HashCode>
+      <FileName>Obsticles\Items.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GameAssets.ObsticleType" Collapsed="true">
+    <Position X="0.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAkAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Obsticles\Obsticle.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GameAssets.OnCharacterLocation" Collapsed="true">
+    <Position X="2.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAIAAEAAAIAAAAAAAAAgAQAAAAAEAAAA=</HashCode>
+      <FileName>Obsticles\WeaponArmor.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GameAssets.BonusType" Collapsed="true">
+    <Position X="2.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAIAAABAAAAAAAAAAAAAAQAAAAACgAAAAA=</HashCode>
+      <FileName>Obsticles\WeaponArmor.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="StaticObsticleType" Collapsed="true">
+    <Position X="4" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAKAAAAAQEAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Obsticles\StaticObsticle.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

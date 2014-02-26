@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 
 namespace GameAssets
 {
@@ -36,7 +37,16 @@ namespace GameAssets
 
         public override string ToString()
         {
-            return base.ToString();
+            var sb = new StringBuilder();
+            sb.AppendLine(String.Format("Name: {0}", Name));
+            sb.AppendLine();
+            sb.AppendLine("Type: Hostile");
+            sb.AppendLine();
+            sb.AppendLine(String.Format("Health Points: {0}", MaxHealt));
+            sb.AppendLine(String.Format("Damage: {0}-{1}", MinDamage, MaxDamage));
+            sb.AppendLine(String.Format("Deffence: {0}%", Defence));
+            sb.AppendLine(String.Format("Speed: {0}", Speed));
+            return sb.ToString();
         }
     }
 }

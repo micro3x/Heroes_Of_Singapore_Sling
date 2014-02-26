@@ -5,5 +5,6 @@ namespace GameAssets
 {
     class HeroSpell : Magic
     {
+
     }
 }
