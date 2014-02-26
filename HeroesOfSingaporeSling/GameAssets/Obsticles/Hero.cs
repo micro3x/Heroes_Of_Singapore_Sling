@@ -62,6 +62,34 @@ namespace GameAssets
         #endregion
 
         #region Proparties
+        public override int AttackRating
+        {
+            get
+            {
+                int currentAttackRating = base.AttackRating;
+                currentAttackRating += Agility * 3;
+                return currentAttackRating;
+            }
+            protected set
+            {
+                base.AttackRating = value;
+            }
+        }
+
+        public override int AttackSpeed
+        {
+            get
+            {
+                int currentAttackSpeed = base.AttackSpeed;
+                currentAttackSpeed += Agility * 2;
+                return currentAttackSpeed;
+            }
+            protected set
+            {
+                base.AttackSpeed = value;
+            }
+        }
+
         public string HeroHeroClassName
         {
             get
@@ -306,8 +334,8 @@ namespace GameAssets
 
         #region Constructors
         private Hero(string name, int maxHealt, int defence, int speed, int minDamage,
-            int maxDamage, int strenght, int vitality, int wisdom, int agility,int maxMana, string heroClassName = "")
-            : base(name,maxHealt,defence,speed,minDamage,maxDamage)
+            int maxDamage, int strenght, int vitality, int wisdom, int agility,int maxMana, int attackRating, int attackSpeed , string heroClassName = "")
+            : base(name,maxHealt,defence,speed,minDamage,maxDamage, attackRating, attackSpeed)
         {
             NextLevelAt = 100;
             Strenght = strenght;
@@ -322,7 +350,7 @@ namespace GameAssets
         public static Hero Paladin(string name)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("You must provide a name for your Hero");
-            Hero paladin = new Hero(name,100,25,2,5,15,5,5,1,2,10,"Pladin");
+            Hero paladin = new Hero(name,100,25,2,5,15,5,5,1,2,10,5,3,"Pladin");
             paladin.ObsticleType = ObsticleType.Creature;
             paladin.PositionTop = 200;
             paladin.PositionLeft = 200;
@@ -337,7 +365,7 @@ namespace GameAssets
         public static Hero Agent(string name)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("You must provide a name for your Hero");
-            Hero paladin = new Hero(name, 80, 20, 5, 1, 5, 2, 2, 5, 3, 10, "Agent");
+            Hero paladin = new Hero(name, 80, 20, 5, 1, 5, 2, 2, 5, 3, 10,4,6, "Agent");
             paladin.ObsticleType = ObsticleType.Creature;
             paladin.PositionTop = 200;
             paladin.PositionLeft = 200;
@@ -350,7 +378,7 @@ namespace GameAssets
         public static Hero Archer(string name)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("You must provide a name for your Hero");
-            Hero archer = new Hero(name, 90, 30, 5, 3, 5, 4, 3, 6, 3, 10, "Archer");
+            Hero archer = new Hero(name, 90, 30, 5, 3, 5, 4, 3, 6, 3, 10,2,7, "Archer");
             archer.ObsticleType = ObsticleType.Creature;
             archer.PositionTop = 200;
             archer.PositionLeft = 200;
@@ -363,7 +391,7 @@ namespace GameAssets
         public static Hero Mage(string name)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("You must provide a name for your Hero");
-            Hero mage = new Hero(name, 80, 35, 5, 4, 5, 3, 4, 7, 4, 10, "Mage");
+            Hero mage = new Hero(name, 80, 35, 5, 4, 5, 3, 4, 7, 4, 10,2,2, "Mage");
             mage.ObsticleType = ObsticleType.Creature;
             mage.PositionTop = 200;
             mage.PositionLeft = 200;
@@ -425,5 +453,8 @@ namespace GameAssets
         }
 
         #endregion
+
+        
+
     }
 }

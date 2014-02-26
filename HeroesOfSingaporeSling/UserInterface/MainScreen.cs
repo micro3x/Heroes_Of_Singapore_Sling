@@ -61,30 +61,67 @@ namespace UserInterface
         /// <param name="inputObsticles"></param>
         private void AddObsticles(List<Obsticle> inputObsticles)
         {
-            //t.TerrainObsticles.Sort(new DrawingSort());
-            for (int i = 0; i < inputObsticles.Count; i++)
+            if (InvokeRequired)
             {
-                // here we take the obsticle
-                var inputObsticle = inputObsticles[i];
-                // now we create the Control and set the proparties
-                ObsticleDisplayBox a = new ObsticleDisplayBox();
-                // position
-                a.Left = inputObsticle.PositionLeft;
-                a.Top = inputObsticle.PositionTop;
-                // dimentions
-                a.Height = inputObsticle.Height;
-                a.Width = inputObsticle.Width;
-                // image
-                a.Image = inputObsticle.ExploreImage;
-                // make it transperent
-                a.BackColor = Color.Transparent;
-                a.Name = "tree";
-                a.ItemId = i;
-                a.Tag = inputObsticle.ToString();
-                // what happens when you click the obsticle
-                a.MouseClick += AOnClick;
-                // finally we put the object on the form
-                this.Controls.Add(a);
+                // if we are here this means only this thread can touch our form!
+                // So we call the invoke method with the delegate Action and create 
+                // an anonimous method to do the job.
+                this.Invoke((Action) (() =>
+                {
+
+                    //t.TerrainObsticles.Sort(new DrawingSort());
+                    for (int i = 0; i < inputObsticles.Count; i++)
+                    {
+                        // here we take the obsticle
+                        var inputObsticle = inputObsticles[i];
+                        // now we create the Control and set the proparties
+                        ObsticleDisplayBox a = new ObsticleDisplayBox();
+                        // position
+                        a.Left = inputObsticle.PositionLeft;
+                        a.Top = inputObsticle.PositionTop;
+                        // dimentions
+                        a.Height = inputObsticle.Height;
+                        a.Width = inputObsticle.Width;
+                        // image
+                        a.Image = inputObsticle.ExploreImage;
+                        // make it transperent
+                        a.BackColor = Color.Transparent;
+                        a.Name = "tree";
+                        a.ItemId = i;
+                        a.Tag = inputObsticle.ToString();
+                        // what happens when you click the obsticle
+                        a.MouseClick += AOnClick;
+                        // finally we put the object on the form
+                        this.Controls.Add(a);
+                    }
+                }));
+            }
+            else
+            {
+                for (int i = 0; i < inputObsticles.Count; i++)
+                {
+                    // here we take the obsticle
+                    var inputObsticle = inputObsticles[i];
+                    // now we create the Control and set the proparties
+                    ObsticleDisplayBox a = new ObsticleDisplayBox();
+                    // position
+                    a.Left = inputObsticle.PositionLeft;
+                    a.Top = inputObsticle.PositionTop;
+                    // dimentions
+                    a.Height = inputObsticle.Height;
+                    a.Width = inputObsticle.Width;
+                    // image
+                    a.Image = inputObsticle.ExploreImage;
+                    // make it transperent
+                    a.BackColor = Color.Transparent;
+                    a.Name = "tree";
+                    a.ItemId = i;
+                    a.Tag = inputObsticle.ToString();
+                    // what happens when you click the obsticle
+                    a.MouseClick += AOnClick;
+                    // finally we put the object on the form
+                    this.Controls.Add(a);
+                }
             }
         }
 
@@ -157,11 +194,28 @@ namespace UserInterface
             if (mode.DialogResult == DialogResult.OK)
             {
                 // Battle Start
+                Battle.BattleEnded += Battle_BattleEnded;
                 Battle.AutoBattle(e.Hero, e.Enemy);
+                Battle.BattleEnded -= Battle_BattleEnded;
             }
             else
             {
                 MessageBox.Show("Sorry Not Ready Yet");
+            }
+        }
+
+        void Battle_BattleEnded(object sender, BattleEndEventArgs e)
+        {
+            if (e.HeroWin)
+            {
+                t.TerrainObsticles.Remove(e.Looser);
+                RemoveAllObsticles();
+                AddObsticles(t.TerrainObsticles);
+                //this.Refresh();
+            }
+            else
+            {
+                restartToolStripMenuItem.PerformClick();
             }
         }
 
@@ -237,15 +291,7 @@ namespace UserInterface
                             {
                                 t.TerrainObsticles.RemoveAt(controlClicked.ItemId);
                                 this.Controls.Remove(sender as Control);
-                                for (int i = Controls.Count - 1; i >= 0 ; i--)
-                                {
-                                    Type b = Controls[i].GetType();
-                                    if (Controls[i].GetType() == typeof(ObsticleDisplayBox))
-                                    {
-                                        Type a = Controls[i].GetType();
-                                        this.Controls.Remove(Controls[i] as ObsticleDisplayBox);
-                                    }
-                                }
+                                RemoveAllObsticles();
                                 AddObsticles(t.TerrainObsticles);
                                 this.Refresh();
                             }
@@ -253,6 +299,37 @@ namespace UserInterface
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        private void RemoveAllObsticles()
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke((Action) (() =>
+                {
+                    for (int i = Controls.Count - 1; i >= 0; i--)
+                    {
+                        Type b = Controls[i].GetType();
+                        if (Controls[i].GetType() == typeof (ObsticleDisplayBox))
+                        {
+                            Type a = Controls[i].GetType();
+                            this.Controls.Remove(Controls[i] as ObsticleDisplayBox);
+                        }
+                    }
+                }));
+            }
+            else
+            {
+                for (int i = Controls.Count - 1; i >= 0; i--)
+                {
+                    Type b = Controls[i].GetType();
+                    if (Controls[i].GetType() == typeof (ObsticleDisplayBox))
+                    {
+                        Type a = Controls[i].GetType();
+                        this.Controls.Remove(Controls[i] as ObsticleDisplayBox);
+                    }
                 }
             }
         }

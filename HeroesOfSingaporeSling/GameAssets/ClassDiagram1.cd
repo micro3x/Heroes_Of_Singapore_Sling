@@ -36,10 +36,10 @@
       <FileName>Events\Events.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="GameAssets.BattleEventArgs" Collapsed="true">
+  <Class Name="GameAssets.BattleEndEventArgs" Collapsed="true">
     <Position X="5.75" Y="9.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Events\Events.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -89,7 +89,7 @@
   <Class Name="GameAssets.Hero" Collapsed="true">
     <Position X="5.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACQAJIwAoIAIKAInAAEAAIAFBAYCAAQ3gAAAKgIgIKA=</HashCode>
+      <HashCode>AKQAJIwAoIAIKAInAAEAAIAFBAYCAAY3gAAAKgIgIKA=</HashCode>
       <FileName>Obsticles\Hero.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -119,7 +119,7 @@
   <Class Name="GameAssets.MagicItem" Collapsed="true">
     <Position X="10" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQAAAAAAAAEIAAAAAAAAAAgAAAABAAAAAAAAEA=</HashCode>
+      <HashCode>AAAAAAQQAAAAAAEEIAAAAAAAAAAgAAIABAAAAAAAAEA=</HashCode>
       <FileName>Obsticles\MagicItem.cs</FileName>
     </TypeIdentifier>
   </Class>

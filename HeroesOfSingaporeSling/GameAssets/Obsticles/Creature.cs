@@ -23,7 +23,7 @@ namespace GameAssets
         private int _attackRating;
         private int _defenceRating;
 
-        protected Creature(string name, int maxHealt, int defence, int speed, int minDamage, int maxDamage)
+        protected Creature(string name, int maxHealt, int defence, int speed, int minDamage, int maxDamage , int attackRating, int attackSpeed)
         {
             Name = name;
             Healt = maxHealt;
@@ -32,6 +32,8 @@ namespace GameAssets
             Speed = speed;
             MinDamage = minDamage;
             MaxDamage = maxDamage;
+            _attackRating = attackRating;
+            _attackSpeed = attackSpeed;
 
         }
 
@@ -59,13 +61,13 @@ namespace GameAssets
             protected set { _attackRating = value; }
         }
         // nikoi ne go instancira sledovatekno vinagi shte e 0
-        public int AttackSpeed
+        public virtual int AttackSpeed
         {
             get
             {
                 return this._attackSpeed;
             }
-            set
+            protected set
             {
                 this._attackSpeed = value;
             }

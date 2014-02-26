@@ -18,7 +18,7 @@ namespace GameAssets
         public int LevelReached { get; set; }
         public int NextLevelAt { get; set; }
     }
-    
+
     public class MoveEventArgs : EventArgs
     {
         public int posTop { set; get; }
@@ -61,7 +61,7 @@ namespace GameAssets
         }
     }
 
-public class ChangeScreenEventArgs : EventArgs
+    public class ChangeScreenEventArgs : EventArgs
     {
         private int next;
 
@@ -72,5 +72,21 @@ public class ChangeScreenEventArgs : EventArgs
             next = nextScreen;
         }
     }
+
+    public class BattleEndEventArgs : EventArgs
+    {
+        private bool win;
+        private Creature losser;
+
+        public bool HeroWin { get { return win; } }
+        public Creature Looser { get { return losser; } }
+
+        public BattleEndEventArgs(bool userWin, Creature losserCreature)
+        {
+            win = userWin;
+            losser = losserCreature;
+        }
+    }
+
 
 }
