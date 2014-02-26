@@ -220,9 +220,9 @@
             // HeroIcon
             // 
             this.HeroIcon.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.HeroesSource, "ExploreImage", true));
-            this.HeroIcon.Location = new System.Drawing.Point(85, 43);
+            this.HeroIcon.Location = new System.Drawing.Point(85, 35);
             this.HeroIcon.Name = "HeroIcon";
-            this.HeroIcon.Size = new System.Drawing.Size(59, 55);
+            this.HeroIcon.Size = new System.Drawing.Size(79, 79);
             this.HeroIcon.TabIndex = 12;
             this.HeroIcon.TabStop = false;
             // 
