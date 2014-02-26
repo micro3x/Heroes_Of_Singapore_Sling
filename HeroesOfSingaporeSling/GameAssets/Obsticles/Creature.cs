@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using GameAssets.Interfaces;
 
 namespace GameAssets
 {
 
     [Serializable]
-    public abstract class Creature : Obsticle
+    public abstract class Creature : Obsticle, IFightable
     {
         private string _name;
         private int _healt;

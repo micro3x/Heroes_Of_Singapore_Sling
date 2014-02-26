@@ -48,15 +48,16 @@ namespace GameAssets
 
     public class BattleEventArgs : EventArgs
     {
-        private Hero hero;
-        private Enemy enemy;
+        private Creature hero;
+        private Creature enemy;
 
         public Creature Hero { get { return hero; } }
         public Creature Enemy { get { return enemy; } }
 
         public BattleEventArgs(Creature hero, Creature enemy)
         {
-
+            this.hero = hero;
+            this.enemy = enemy;
         }
     }
 

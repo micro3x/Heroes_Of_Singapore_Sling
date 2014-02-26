@@ -45,6 +45,7 @@
     <Compile Include="Background\BackgroundSound.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="GeneralSpell.cs" />
+    <Compile Include="Interfaces\IFightable.cs" />
     <Compile Include="Magic.cs" />
     <Compile Include="Obsticles\Creature.cs" />
     <Compile Include="Obsticles\Enemy.cs" />

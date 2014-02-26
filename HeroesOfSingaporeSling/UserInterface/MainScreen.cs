@@ -152,8 +152,17 @@ namespace UserInterface
 
         void BattleStartNew(object sender, BattleEventArgs e)
         {
-            
-            MessageBox.Show("FIGHT!!");
+            FightModeDialog mode = new FightModeDialog();
+            mode.ShowDialog();
+            if (mode.DialogResult == DialogResult.OK)
+            {
+                // Battle Start
+                Battle.AutoBattle(e.Hero, e.Enemy);
+            }
+            else
+            {
+                MessageBox.Show("Sorry Not Ready Yet");
+            }
         }
 
         /// <summary>

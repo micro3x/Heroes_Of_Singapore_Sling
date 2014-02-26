@@ -77,6 +77,7 @@
       <HashCode>AIAAKAAAgAAACAAAAAAAgAQBQAACCEIgBRAAAiAAAJA=</HashCode>
       <FileName>Obsticles\Creature.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="GameAssets.Enemy" Collapsed="true">
     <Position X="7.75" Y="3.25" Width="1.5" />

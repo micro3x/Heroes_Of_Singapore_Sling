@@ -5,7 +5,6 @@ using System.Linq;
 namespace GameAssets.Obsticles
 {
 
-    // Tova Cqloto zashto e v Obsticle ?
 
     [Serializable]
     public class HeroInventory
