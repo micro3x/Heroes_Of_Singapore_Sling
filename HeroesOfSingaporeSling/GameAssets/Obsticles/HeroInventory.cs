@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameAssets.Structures;
 
 namespace GameAssets.Obsticles
 {
@@ -92,9 +93,9 @@ namespace GameAssets.Obsticles
         private Tuple<int,int> FindLocation(Items item)
         {
             var space = CalculateGridSpace(item);
-            for (int postionInInvRow = 0; postionInInvRow < (inventoryGrid.GetLength(0) - space.GetLength(0)); postionInInvRow++)
+            for (int postionInInvRow = 0; postionInInvRow < (inventoryGrid.GetLength(0) - space.Rows); postionInInvRow++)
             {
-                for (int postionInInvCol = 0; postionInInvCol < (inventoryGrid.GetLength(1) - space.GetLength(1)); postionInInvCol++)
+                for (int postionInInvCol = 0; postionInInvCol < (inventoryGrid.GetLength(1) - space.Cols); postionInInvCol++)
                 {
                     if (OccupyedSpaceCheck(space, new Tuple<int, int>(postionInInvRow,postionInInvCol) ))
                     {
@@ -105,30 +106,30 @@ namespace GameAssets.Obsticles
             return null;
         }
 
-        private void OccupySpace(bool[,] space, Tuple<int,int> leftTopGridPosition)
+        private void OccupySpace(GridSize space, Tuple<int,int> leftTopGridPosition)
         {
-            for (int spaceToOccupyRow = leftTopGridPosition.Item1; spaceToOccupyRow < leftTopGridPosition.Item1+space.GetLength(0); spaceToOccupyRow++)
+            for (int spaceToOccupyRow = leftTopGridPosition.Item1; spaceToOccupyRow < leftTopGridPosition.Item1+space.Rows; spaceToOccupyRow++)
             {
-                for (int spaceToOccupyCola = leftTopGridPosition.Item2; spaceToOccupyCola < leftTopGridPosition.Item2+space.GetLength(1); spaceToOccupyCola++)
+                for (int spaceToOccupyCola = leftTopGridPosition.Item2; spaceToOccupyCola < leftTopGridPosition.Item2+space.Cols; spaceToOccupyCola++)
                 {
                     inventoryGrid[spaceToOccupyRow, spaceToOccupyCola] = true;
                 }
             }
         }
-        private bool OccupyedSpaceCheck(bool[,] space, Tuple<int, int> leftTopGridPosition)  
+        private bool OccupyedSpaceCheck(GridSize space, Tuple<int, int> leftTopGridPosition)  
         {
-            if (leftTopGridPosition.Item1 + space.GetLength(0) > inventoryGrid.GetLength(0))
+            if (leftTopGridPosition.Item1 + space.Rows > inventoryGrid.GetLength(0))
             {
                 return false;
             }
-            if (leftTopGridPosition.Item2 + space.GetLength(1) > inventoryGrid.GetLength(1))
+            if (leftTopGridPosition.Item2 + space.Cols > inventoryGrid.GetLength(1))
             {
                 return false;
             }
 
-            for (int spaceToOccupyRow = leftTopGridPosition.Item1; spaceToOccupyRow < leftTopGridPosition.Item1+space.GetLength(0) ; spaceToOccupyRow++)
+            for (int spaceToOccupyRow = leftTopGridPosition.Item1; spaceToOccupyRow < leftTopGridPosition.Item1+space.Rows ; spaceToOccupyRow++)
             {
-                for (int spaceToOccupyCol = leftTopGridPosition.Item2; spaceToOccupyCol < leftTopGridPosition.Item2+space.GetLength(1); spaceToOccupyCol++)
+                for (int spaceToOccupyCol = leftTopGridPosition.Item2; spaceToOccupyCol < leftTopGridPosition.Item2+space.Cols; spaceToOccupyCol++)
                 {
                     if (inventoryGrid[spaceToOccupyRow,spaceToOccupyCol])
                     {
@@ -138,13 +139,14 @@ namespace GameAssets.Obsticles
             }
             return true;
         }
-        private bool[,] CalculateGridSpace(Items item)
+        private GridSize CalculateGridSpace(Items item)
         {
 
             int colsLenght = item.InventoryImage.Width/20;
             int rowsLenght = item.InventoryImage.Height/20;
-            bool[,] output = new bool[rowsLenght,colsLenght];
-            return output;
+            //bool[,] output = new bool[rowsLenght,colsLenght];
+            //return output;
+            return new GridSize(rowsLenght, colsLenght);
         }
 
         private Tuple<int, int> CalculatePositionToGrid(int row, int col)
@@ -153,11 +155,11 @@ namespace GameAssets.Obsticles
             return output;
         }
 
-        private void ReleeseSpace(bool[,] space, Tuple<int, int> rowColGridPosition)
+        private void ReleeseSpace(GridSize space, Tuple<int, int> rowColGridPosition)
         {
-            for (int spaceToOccupyRow = rowColGridPosition.Item1; spaceToOccupyRow < rowColGridPosition.Item1 + space.GetLength(0); spaceToOccupyRow++)
+            for (int spaceToOccupyRow = rowColGridPosition.Item1; spaceToOccupyRow < rowColGridPosition.Item1 + space.Rows; spaceToOccupyRow++)
             {
-                for (int spaceToOccupyCola = rowColGridPosition.Item2; spaceToOccupyCola < rowColGridPosition.Item2 + space.GetLength(1); spaceToOccupyCola++)
+                for (int spaceToOccupyCola = rowColGridPosition.Item2; spaceToOccupyCola < rowColGridPosition.Item2 + space.Cols; spaceToOccupyCola++)
                 {
                     inventoryGrid[spaceToOccupyRow, spaceToOccupyCola] = false;
                 }
@@ -166,4 +168,6 @@ namespace GameAssets.Obsticles
 
 
     }
+
+    
 }

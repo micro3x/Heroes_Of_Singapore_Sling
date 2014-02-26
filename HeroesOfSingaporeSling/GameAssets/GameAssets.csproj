@@ -63,6 +63,7 @@
     <Compile Include="Functions\RandomGenerator.cs" />
     <Compile Include="Obsticles\StaticObsticle.cs" />
     <Compile Include="Functions\SortByTopPosition.cs" />
+    <Compile Include="Structures\GridSize.cs" />
     <Compile Include="Terrain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Obsticles\WeaponArmor.cs" />
