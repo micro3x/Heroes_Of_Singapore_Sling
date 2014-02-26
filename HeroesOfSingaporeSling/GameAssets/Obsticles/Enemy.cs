@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameAssets
 {
     [Serializable]
-    class Enemy : Creature
+    public class Enemy : Creature
     {
         private Enemy(string name, int maxHealt, int defence, int speed, int minDamage, int maxDamage) 
             : base(name, maxHealt, defence, speed, minDamage, maxDamage)

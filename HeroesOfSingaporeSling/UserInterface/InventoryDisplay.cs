@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using GameAssets;
 using UserInterface.UserControls;
@@ -15,7 +9,7 @@ namespace UserInterface
 {
     public partial class InventoryDisplay : Form
     {
-        private bool draging = false;
+        //private bool draging = false;
         private Hero myHero;
         public InventoryDisplay(Hero currentHero)
         {
@@ -122,7 +116,7 @@ namespace UserInterface
 
         void BackPack_DragEnter(object sender, DragEventArgs e)
         {
-            var a = e.Data.GetData(typeof(Guid));
+            //var a = e.Data.GetData(typeof(Guid));
             e.Effect = DragDropEffects.Move;
         }
 

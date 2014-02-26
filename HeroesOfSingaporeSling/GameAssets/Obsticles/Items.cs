@@ -1,32 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameAssets
 {
-    public enum MagicType { Fireball, Iceball}
-
+    public enum ItemType { WeaponArmor, Magical, AmuletRing}
     [Serializable]
-    abstract class Magic : Obsticle, IPickable
+    public abstract class Items : Obsticle, IPickable
     {
         private readonly string name;
-        private readonly MagicType typeOfMagic;
+        private readonly ItemType typeOfItem;
         private readonly Rectangle inventorySize;
         private readonly Bitmap inventoryImage;
         private readonly Guid id ;
 
-        protected Magic()
+        protected Items(string itemName, ItemType type, Bitmap inventoryBitmap)
         {
- 
-        }
-        protected Magic(string MagicName, MagicType type, Bitmap inventoryBitmap)
-        {
-            name = MagicName;
-            typeOfMagic = type;
+            name = itemName;
+            typeOfItem = type;
             if (inventoryBitmap.Height % 20 != 0 || inventoryBitmap.Width % 20 != 0)
             {
                 inventorySize = new Rectangle(0,0,(inventoryBitmap.Width/20)*20,(inventoryBitmap.Height/20)*20);
@@ -34,6 +25,7 @@ namespace GameAssets
             inventoryImage = new Bitmap(inventoryBitmap,inventorySize.Size);//  inventoryBitmap.Clone(inventorySize,new PixelFormat());
             id = Guid.NewGuid();
         }
+
 
         public Guid Id
         {
@@ -45,9 +37,9 @@ namespace GameAssets
             get { return inventoryImage; }
         }
 
-        public MagicType TypeOfMagic
+        public ItemType TypeOfItem
         {
-            get { return typeOfMagic; }
+            get { return typeOfItem; }
         }
 
         public string Name

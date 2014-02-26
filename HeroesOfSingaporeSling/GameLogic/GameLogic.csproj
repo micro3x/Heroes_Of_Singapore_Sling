@@ -41,9 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Battle.cs" />
-    <Compile Include="Damage.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Magic.cs" />
     <Compile Include="Movement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -51,10 +49,6 @@
     <ProjectReference Include="..\GameAssets\GameAssets.csproj">
       <Project>{6acfca65-3da0-4fe2-8ccc-1a6cc6736bbf}</Project>
       <Name>GameAssets</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GameCommon\GameCommon.csproj">
-      <Project>{BDAACF6F-8740-46DF-A520-4A44D5FE67C8}</Project>
-      <Name>GameCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

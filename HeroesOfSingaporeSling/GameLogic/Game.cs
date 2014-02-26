@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GameAssets;
 
 namespace GameLogic
@@ -11,7 +8,7 @@ namespace GameLogic
     public sealed class Game
     {
         private static volatile Game instance;
-        private static object syncRoot = new object();
+        private static readonly object syncRoot = new object();
 
         private Game()
         {

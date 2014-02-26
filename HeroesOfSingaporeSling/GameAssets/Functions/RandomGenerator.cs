@@ -2,7 +2,7 @@
 
 namespace GameAssets
 {
-    static class RandomGenerator
+    public static class RandomGenerator
     {
         static Random rand = new Random();
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using GameCommon;
 using System.Collections.Generic;
 
 public enum StaticObsticleType

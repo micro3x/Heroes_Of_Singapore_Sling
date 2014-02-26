@@ -1,22 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Media;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using GameAssets;
-using UserInterface.UserControls;
-using GameCommon;
 using GameLogic;
-
+using UserInterface.UserControls;
 
 namespace UserInterface
 {
@@ -111,7 +103,7 @@ namespace UserInterface
 
 
         #endregion
-
+        
         #region Event Handelers
         /// <summary>
         /// This method is used to change the screen when you move out of the current one
@@ -157,6 +149,7 @@ namespace UserInterface
 
         void BattleStartNew(object sender, BattleEventArgs e)
         {
+            
             MessageBox.Show("FIGHT!!");
         }
 
@@ -257,7 +250,7 @@ namespace UserInterface
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void inventoryButton_Click(object sender, EventArgs e)
+        private void InventoryButton_Click(object sender, EventArgs e)
         {
             Movement.Stop();
             //first we close all opened forms if any

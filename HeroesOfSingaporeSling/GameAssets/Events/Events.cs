@@ -48,21 +48,19 @@ namespace GameAssets
 
     public class BattleEventArgs : EventArgs
     {
-        private Creature _firstObsticle;
-        private Creature _secondObsticle;
+        private Hero hero;
+        private Enemy enemy;
 
-        public Creature firstObsticle { get { return _firstObsticle; } }
-        public Creature secondObsticle { get { return _secondObsticle; } }
+        public Creature Hero { get { return hero; } }
+        public Creature Enemy { get { return enemy; } }
 
-        public BattleEventArgs(Creature first, Creature second)
+        public BattleEventArgs(Creature hero, Creature enemy)
         {
-            _firstObsticle = first;
-            _secondObsticle = second;
+
         }
     }
 
-
-    public class ChangeScreenEventArgs : EventArgs
+public class ChangeScreenEventArgs : EventArgs
     {
         private int next;
 

@@ -1,11 +1,8 @@
 ﻿namespace GameAssets
 {
     using System;
-    using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public enum ObsticleType
     {
@@ -13,6 +10,7 @@
         Creature,
         Item
     }
+
     /// <summary>
     /// This is the abstract class that all types of obsticles will inherit.
     /// </summary>

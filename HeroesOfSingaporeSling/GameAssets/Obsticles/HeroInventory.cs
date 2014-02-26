@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameAssets
 {
     [Serializable]
     public class HeroInventory
     {
-        private bool[,] inventoryGrid = new bool[14,13];
-        List<Items> containingItems  = new List<Items>();
+        private readonly bool[,] inventoryGrid = new bool[14,13];
+        private readonly List<Items> containingItems  = new List<Items>();
 
 
         public List<Items> ContainingItems
         {
             get
             {
-                return containingItems.AsReadOnly().ToList(); ;
+                return containingItems.AsReadOnly().ToList();
             }
         }
 

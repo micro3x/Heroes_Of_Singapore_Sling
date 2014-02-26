@@ -46,7 +46,7 @@
             this.inventoryButton.TabIndex = 0;
             this.inventoryButton.Text = "Inventory";
             this.inventoryButton.UseVisualStyleBackColor = true;
-            this.inventoryButton.Click += new System.EventHandler(this.inventoryButton_Click);
+            this.inventoryButton.Click += new System.EventHandler(this.InventoryButton_Click);
             // 
             // menuStrip1
             // 

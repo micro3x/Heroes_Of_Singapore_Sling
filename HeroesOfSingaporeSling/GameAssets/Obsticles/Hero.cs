@@ -1,18 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using GameCommon;
-using System.Collections.Generic;
 
 namespace GameAssets
 {
+    public enum HeroType
+    {
+        Warrior, Mage, Rogue, Paladin, SomethingElse
+    }
+
     [Serializable]
     public class Hero : Creature, IMovable
     {
         #region Vars
-        private int _experiance;
+        private string _heroClassName;
+
+        private int _experience;
         private int _nextLevelAtExp;
 
         private int _lvl;
@@ -32,6 +36,18 @@ namespace GameAssets
 
         private List<HeroSpell> availableHeroSpells;
 
+
+        public string HeroClassName
+        {
+            get
+            {
+                return this._heroClassName;
+            }
+            set
+            {
+                this._heroClassName = value;
+            }
+        }
 
         public event EventHandler<MoveEventArgs> Move;
 
@@ -54,20 +70,20 @@ namespace GameAssets
         #region Proparties
         public int GainedExperiance
         {
-            get { return _experiance; }
+            get { return _experience; }
             set
             {
-                if (_experiance >= _nextLevelAtExp)
+                if (_experience >= _nextLevelAtExp)
                 {
                     NewLevel();
                 }
                 if (value < 0)
                 {
-                    _experiance = 0;
+                    _experience = 0;
                 }
                 else
                 {
-                    _experiance = value;
+                    _experience = value;
                 }
             }
         }
@@ -138,7 +154,7 @@ namespace GameAssets
             {
                 if (value < 0)
                 {
-                    throw new CannotBeNegative("Vitality cannot be a negative value");
+                    throw new ArgumentOutOfRangeException("Vitality cannot be a negative value");
                 }
                 _agility = value;
             }
@@ -159,7 +175,7 @@ namespace GameAssets
             {
                 if (value < 0)
                 {
-                    throw new CannotBeNegative("Vitality cannot be a negative value");
+                    throw new ArgumentOutOfRangeException("Vitality cannot be a negative value");
                 }
                 _vitality = value;
             }
@@ -181,7 +197,7 @@ namespace GameAssets
             {
                 if (value < 0)
                 {
-                    throw new CannotBeNegative("Wisdom cannot be a negative value");
+                    throw new ArgumentOutOfRangeException("Wisdom cannot be a negative value");
                 }
                 _wisdom = value;
             }
@@ -202,7 +218,7 @@ namespace GameAssets
             {
                 if (value < 0)
                 {
-                    throw new CannotBeNegative("Strenght cannot be a negative value");
+                    throw new ArgumentOutOfRangeException("Strenght cannot be a negative value");
                 }
                 _strenght = value;
             }
@@ -226,9 +242,9 @@ namespace GameAssets
             {
                 int currentDeffence = base.Defence;
                 currentDeffence += Strenght*1;
-                foreach (var Item in WearingItems)
+                foreach (var item in WearingItems)
                 {
-                    currentDeffence += Item.Value.BonusToDefence;
+                    currentDeffence += item.Value.BonusToDefence;
                 }
                 return currentDeffence;
             }
@@ -245,9 +261,9 @@ namespace GameAssets
             {
                 int currentDemage = base.MinDamage;
                 currentDemage += Strenght*1;
-                foreach (var Item in WearingItems)
+                foreach (var item in WearingItems)
                 {
-                    currentDemage += Item.Value.BonusToDamage;
+                    currentDemage += item.Value.BonusToDamage;
                 }
                 return currentDemage;
             }
@@ -259,9 +275,9 @@ namespace GameAssets
             {
                 int currentDemage = base.MaxDamage;
                 currentDemage += Strenght * 1;
-                foreach (var Item in WearingItems)
+                foreach (var item in WearingItems)
                 {
-                    currentDemage += Item.Value.BonusToDamage;
+                    currentDemage += item.Value.BonusToDamage;
                 }
                 return currentDemage;
             }

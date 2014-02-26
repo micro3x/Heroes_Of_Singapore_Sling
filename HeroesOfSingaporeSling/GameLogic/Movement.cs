@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Media;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using GameAssets;
-using GameCommon;
-using Microsoft.Win32;
-
 
 namespace GameLogic
 {
@@ -138,7 +130,7 @@ namespace GameLogic
                         {
                             if (obs.ObsticleType == ObsticleType.Creature)
                             {
-                                 startFight = () => Battle.OnBattleStart(new BattleEventArgs((Creature) itemToMove, (Creature) obs));
+                                 startFight = () => Battle.OnBattleStart(new BattleEventArgs((Hero) itemToMove, (Enemy) obs));
                             }
                             return;
                         }
