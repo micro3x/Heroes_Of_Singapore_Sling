@@ -11,13 +11,16 @@ namespace GameAssets
     [Serializable]
     public class MagicItem : Items
     {
-        private delegate void ActionWhenUsed(params Creature[] actionParameters);
-
+        [Serializable]
+        private delegate void ActionWhenUsed(int restoreValue, params Creature[] actionParameters);
+        
         private readonly ActionWhenUsed use;
 
         private readonly Bitmap itemBitmap;
 
         private readonly string description;
+
+        private readonly int restorePoints;
 
         public MagicItem(string magicName, Bitmap inventoryBitmap, string spellToPerform)
             : base(magicName, ItemType.Magical, inventoryBitmap)
@@ -41,27 +44,16 @@ namespace GameAssets
             : base(magicName, ItemType.Magical,new Bitmap(1,1))
         {
             Used = false;
+            restorePoints = restoreValue;
             switch (potionType)
             {
                 case PotionType.Heal:
-                    use = parameters => {
-                                            foreach (Creature actionParameter in parameters)
-                                            {
-                                                actionParameter.Healt += restoreValue;
-                                            }
-                    };
+                    use = UseHealthPotion;
                     itemBitmap = new Bitmap(Environment.CurrentDirectory + "\\Images\\Items\\Potions\\HP_Potion.png");
                     description = String.Format("Restores {0} health points.",restoreValue);
                     break;
                 case PotionType.RestoreMana:
-                    use = parameters => {
-                                            foreach (Creature actionParameter in parameters)
-                                            {
-                                                var hero = actionParameter as Hero;
-                                                if (hero != null)
-                                                    hero.CurrentMana += restoreValue;
-                                            }
-                    };
+                    use = UseManaPotion;
                     itemBitmap = new Bitmap(Environment.CurrentDirectory + "\\Images\\Items\\Potions\\ManaPotion.png");
                     description = String.Format("Restores {0} mana points.", restoreValue);
                     break;
@@ -72,11 +64,29 @@ namespace GameAssets
             Height = itemBitmap.Height;
             ObsticleType = ObsticleType.Item;
         }
+
+        private void UseManaPotion(int restoreValue, params Creature[] actionParameters)
+        {
+            foreach (Creature actionParameter in actionParameters)
+            {
+                Hero hero = actionParameter as Hero;
+                if (hero != null) hero.CurrentMana += restoreValue;
+            }
+        }
+
+        private void UseHealthPotion(int restoreValue,params Creature[] actionParameters)
+        {
+            foreach (Creature actionParameter in actionParameters)
+            {
+                actionParameter.Healt += restoreValue;
+            }
+        }
+
         public bool Used { get; private set; }
 
         public void UseItem(Creature useOnCreature)
         {
-            use(useOnCreature);
+            use(restorePoints, useOnCreature);
         }
 
         public override string ToString()
